@@ -8,7 +8,12 @@ namespace Yahtzee.Utilities
 {
     public class DieModel
     {
-        int Id { get; set; }
-        int Value { get; set; }
+        public int Id { get; set; }
+        public int Value { get; set; }
+
+        public override string ToString()
+        {
+            return $"Die {Id} - {Value}";
+        }
     }
 }

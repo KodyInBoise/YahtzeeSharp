@@ -1,7 +1,6 @@
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\bin\Debug\Yahtzee.exe.config
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\bin\Debug\Yahtzee.exe
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\bin\Debug\Yahtzee.pdb
-\\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\Yahtzee.csprojResolveAssemblyReference.cache
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\MainWindow.g.cs
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\App.g.cs
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\Yahtzee_MarkupCompile.cache

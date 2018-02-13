@@ -54,8 +54,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Scorecard\Numbers.cs" />
+    <Compile Include="Scorecard\Score.cs" />
+    <Compile Include="Scorecard\ScoreKeeper.cs" />
+    <Compile Include="Utilities\GameTracker.cs" />
     <Compile Include="Utilities\DiceHelper.cs" />
     <Compile Include="Utilities\DieModel.cs" />
+    <Compile Include="Utilities\PlayerModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

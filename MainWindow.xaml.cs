@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Yahtzee.Scorecard;
 using Yahtzee.Utilities;
 
 namespace Yahtzee
@@ -21,6 +22,7 @@ namespace Yahtzee
     /// </summary>
     public partial class MainWindow : Window
     {
+        public GameTracker CurrentGame;
         public List<DieModel> DiceList;
         public List<DieModel> HeldDice;
 
@@ -46,6 +48,13 @@ namespace Yahtzee
             {
                 diceLB.Items.Add(_DieModel);
             }
+
+            CurrentGame.CurrentRoll++;
+            rollTB.Text = $"Roll: {CurrentGame.CurrentRoll} of 3";
+            if (CurrentGame.CurrentRoll == 3)
+            {
+                rollBTN.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void holdBTN_Click(object sender, RoutedEventArgs e)
@@ -64,6 +73,27 @@ namespace Yahtzee
             DiceList.Add(_selectedDieModel);
             heldLB.Items.Remove(_selectedDieModel);
             diceLB.Items.Add(_selectedDieModel);
+        }
+
+        private void startBTN_Click(object sender, RoutedEventArgs e)
+        {
+            StartNewGame();
+        }
+
+        private void StartNewGame()
+        {
+            CurrentGame = new GameTracker();
+
+            playerTB.Visibility = Visibility.Visible;
+            rollTB.Visibility = Visibility.Visible;
+            turnTB.Visibility = Visibility.Visible;
+
+            startBTN.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var _scores = new Numbers();
         }
     }
 }
