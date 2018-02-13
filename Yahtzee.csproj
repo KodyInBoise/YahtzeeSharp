@@ -54,9 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Scorecard\Numbers.cs" />
-    <Compile Include="Scorecard\Score.cs" />
-    <Compile Include="Scorecard\ScoreKeeper.cs" />
+    <Compile Include="ScoreHelper\Numbers.cs" />
+    <Compile Include="ScoreHelper\Score.cs" />
+    <Compile Include="ScoreHelper\ScoreTracker.cs" />
+    <Compile Include="ScoreHelper\VerifyScore.cs" />
     <Compile Include="Utilities\GameTracker.cs" />
     <Compile Include="Utilities\DiceHelper.cs" />
     <Compile Include="Utilities\DieModel.cs" />

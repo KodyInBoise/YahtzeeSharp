@@ -22,6 +22,7 @@ namespace Yahtzee
     /// </summary>
     public partial class MainWindow : Window
     {
+        public PlayerModel ActivePlayer;
         public GameTracker CurrentGame;
         public List<DieModel> DiceList;
         public List<DieModel> HeldDice;
@@ -83,7 +84,12 @@ namespace Yahtzee
         private void StartNewGame()
         {
             CurrentGame = new GameTracker();
-
+            ActivePlayer = new PlayerModel
+            {
+                Name = "Kody",
+                Scorecard = new ScoreTracker()
+            };
+            
             playerTB.Visibility = Visibility.Visible;
             rollTB.Visibility = Visibility.Visible;
             turnTB.Visibility = Visibility.Visible;
@@ -93,7 +99,8 @@ namespace Yahtzee
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var _scores = new Numbers();
+            ActivePlayer.Scorecard.AddScore(HeldDice, 2);
+            return;
         }
     }
 }

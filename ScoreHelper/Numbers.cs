@@ -37,7 +37,7 @@ namespace Yahtzee.Scorecard
                     Name = $"{_number}'s",
                     Value = _sum
                 };
-
+                
                 Used.Add(_number);
                 Available.Remove(_number);
 
