@@ -99,8 +99,9 @@ namespace Yahtzee
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ActivePlayer.Scorecard.AddScore(HeldDice, 2);
-            return;
+            //ActivePlayer.Scorecard.AddScore(HeldDice, 2);
+            var _scoreWindow = new ScoreWindow();
+            _scoreWindow.Show();
         }
     }
 }

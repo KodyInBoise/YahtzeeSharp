@@ -12,3 +12,6 @@
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\Yahtzee.csproj.CoreCompileInputs.cache
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\Yahtzee.exe
 \\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\Yahtzee.pdb
+\\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\Yahtzee.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\ScoreWindow.g.cs
+\\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\ScoreWindow.baml
