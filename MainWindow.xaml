@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="rollBTN" FontFamily="Verdana" FontSize="14" Content="Roll" HorizontalAlignment="Left" Margin="415,270,0,0" VerticalAlignment="Top" Width="92" Click="rollBTN_Click" Height="34"/>
+        <ListBox x:Name="diceLB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Height="251" Margin="10,14,0,0" VerticalAlignment="Top" Width="81"/>
+        <Button x:Name="holdBTN" FontFamily="Verdana" FontSize="14" Content="Hold" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Width="81" Click="holdBTN_Click" Height="34"/>
+        <ListBox x:Name="heldLB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Height="251" Margin="96,14,0,0" VerticalAlignment="Top" Width="81"/>
+        <Button x:Name="unholdBTN" FontFamily="Verdana" FontSize="14" Content="Un-Hold" HorizontalAlignment="Left" Margin="96,270,0,0" VerticalAlignment="Top" Width="81" Height="34" Click="unholdBTN_Click"/>
+        <TextBlock x:Name="playerTB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Margin="182,14,0,0" TextWrapping="Wrap" Text="Player: Player 1" VerticalAlignment="Top"/>
+        <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Margin="182,36,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top"/>
+
+        <TextBlock x:Name="turnTB" FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" Margin="182,58,0,0" TextWrapping="Wrap" Text="Turn: 9" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
