@@ -21,10 +21,15 @@ namespace Yahtzee
     public partial class ScoreWindow : Window
     {
         public List<Score> ScoreList;
+        private MainWindow MainWin;
 
-        public ScoreWindow()
+        public ScoreWindow(MainWindow _mainWin)
         {
             InitializeComponent();
+            MainWin = _mainWin;
+            this.Left = _mainWin.Left + MainWin.Width;
+            this.Top = _mainWin.Top;
+
             ShowScores();
         }
 

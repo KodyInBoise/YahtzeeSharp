@@ -100,7 +100,7 @@ namespace Yahtzee
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //ActivePlayer.Scorecard.AddScore(HeldDice, 2);
-            var _scoreWindow = new ScoreWindow();
+            var _scoreWindow = new ScoreWindow(this);
             _scoreWindow.Show();
         }
     }
