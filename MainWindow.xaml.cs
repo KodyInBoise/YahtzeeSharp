@@ -30,8 +30,14 @@ namespace Yahtzee
         public MainWindow()
         {
             InitializeComponent();
+            LoadData();
             DiceList = DiceHelper.NewDiceSet();
             HeldDice = new List<DieModel>();
+        }
+        
+        private void LoadData()
+        {
+            var asdf = DataHelper.DataDirectoryPath();
         }
 
         private void rollBTN_Click(object sender, RoutedEventArgs e)
