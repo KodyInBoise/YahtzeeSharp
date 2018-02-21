@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-\\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\obj\Debug\
+C:\Users\Kody\Documents\GitHub\YahtzeeSharp\obj\Debug\
 Yahtzee
 none
 false
 DEBUG;TRACE
-\\Mac\Home\Documents\Projects\Yahtzee\Yahtzee\App.xaml
+C:\Users\Kody\Documents\GitHub\YahtzeeSharp\App.xaml
 2-946581304
 
-19-728515680
-14-742930570
+19293806618
+15-2058764600
 MainWindow.xaml;ScoreWindow.xaml;
 
 True
