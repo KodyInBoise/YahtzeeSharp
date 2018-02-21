@@ -116,6 +116,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\dice-five.png" />
+    <Resource Include="Images\dice-four.png" />
+    <Resource Include="Images\dice-one.png" />
+    <Resource Include="Images\dice-six.png" />
+    <Resource Include="Images\dice-three.png" />
+    <Resource Include="Images\dice-two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\yahtzee.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

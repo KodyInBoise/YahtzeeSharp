@@ -23,7 +23,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Label x:Name="titleLBL" Content="Yahtzee!" HorizontalAlignment="Left" Margin="725,10,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="50"/>
+        <Image HorizontalAlignment="Left" Height="57" Margin="790,25,0,0" VerticalAlignment="Top" Width="150" Source="Images/yahtzee.png"/>
 
     </Grid>
 </Window>
