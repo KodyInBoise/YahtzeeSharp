@@ -26,8 +26,10 @@ namespace Yahtzee
         public GameTracker CurrentGame;
         public List<DieModel> DiceList;
         private List<Image> DiceImages;
-        public List<DieModel> HeldDice;
+        private List<Image> OpenDiceImages;
+        public List<DieModel> HeldDiceList;
         private List<Image> HeldDiceImages;
+        private List<Image> OpenHeldImages;
         private TurnModel ActiveTurn;
         private List<TurnModel> TurnList;
 
@@ -36,7 +38,9 @@ namespace Yahtzee
             InitializeComponent();
             LoadData();
             DiceList = DiceHelper.NewDiceSet();
-            HeldDice = new List<DieModel>();
+            HeldDiceList = new List<DieModel>();
+            OpenDiceImages = new List<Image>();
+            OpenHeldImages = new List<Image>();
 
             DiceImages = new List<Image>
             {
@@ -70,15 +74,21 @@ namespace Yahtzee
 
         private async void RollDice()
         {
-            foreach (DieModel _die in HeldDice)
-            {
-                DiceList.Remove(_die);
-            }
-
             var _helper = new DiceHelper();
-            await Task.Run(() => _helper.RollDice(DiceList));
+            OpenDiceImages = new List<Image>();
+            OpenHeldImages = new List<Image>();
 
-            DisplayDiceImages(DiceList);
+            var _rollingDiceList = new List<DieModel>();
+            foreach (DieModel _die in DiceList)
+            {
+                if (!HeldDiceList.Contains(_die))
+                {
+                    _rollingDiceList.Add(_die);
+                }
+            }
+            await Task.Run(() => _helper.RollDice(_rollingDiceList));
+
+            DisplayDiceImages(_rollingDiceList);
 
             ActiveTurn.RollCount++;
             rollTB.Text = $"Roll: {ActiveTurn.RollCount} of 3";
@@ -199,41 +209,45 @@ namespace Yahtzee
 
         private void HoldDie(DieModel _die, ImageSource _imageSource)
         {
-            var _heldCount = HeldDice.Count;
+            var _heldCount = HeldDiceList.Count;
             var _newHeldIMG = HeldDiceImages[_heldCount];
             _newHeldIMG.Source = _imageSource;
             _newHeldIMG.Visibility = Visibility.Visible;
-            HeldDice.Add(_die);
-            //DiceList.Remove(_die);
+            HeldDiceList.Add(_die);
         }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
             HoldDie(DiceList[0], diceOneIMG.Source);
+            OpenDiceImages.Add(diceOneIMG);
             diceOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
             HoldDie(DiceList[1], diceTwoIMG.Source);
+            OpenDiceImages.Add(diceTwoIMG);
             diceTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
             HoldDie(DiceList[2], diceThreeIMG.Source);
+            OpenDiceImages.Add(diceThreeIMG);
             diceThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
             HoldDie(DiceList[3], diceFourIMG.Source);
+            OpenDiceImages.Add(diceFourIMG);
             diceFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
             HoldDie(DiceList[4], diceFiveIMG.Source);
+            OpenDiceImages.Add(diceFiveIMG);
             diceFiveIMG.Visibility = Visibility.Collapsed;
         }
 
@@ -243,46 +257,54 @@ namespace Yahtzee
             {
                 _image.Visibility = Visibility.Collapsed;
             }
-            HeldDice = new List<DieModel>();
+            HeldDiceList = new List<DieModel>();
         }
 
         private void AddToRoll(DieModel _die, ImageSource _imageSource)
         {
-            var _diceCount = DiceList.Count;
-            var _newDiceIMG = DiceImages[_diceCount];
+            Image _newDiceIMG;
+            if (OpenDiceImages.Count > 0)
+            {
+                _newDiceIMG = OpenDiceImages[0];
+                OpenDiceImages.RemoveAt(0);
+            }
+            else
+            {
+                _newDiceIMG = DiceImages[DiceList.Count - HeldDiceList.Count];
+            }
             _newDiceIMG.Source = _imageSource;
             _newDiceIMG.Visibility = Visibility.Visible;
             DiceList.Add(_die);
-            HeldDice.Remove(_die);
+            HeldDiceList.Remove(_die);
         }
 
         private void heldOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDice[0], heldOneIMG.Source);
+            AddToRoll(HeldDiceList[0], heldOneIMG.Source);
             heldOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDice[1], heldTwoIMG.Source);
+            AddToRoll(HeldDiceList[1], heldTwoIMG.Source);
             heldTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDice[2], heldThreeIMG.Source);
+            AddToRoll(HeldDiceList[2], heldThreeIMG.Source);
             heldThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDice[3], heldFourIMG.Source);
+            AddToRoll(HeldDiceList[3], heldFourIMG.Source);
             heldFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDice[4], heldFiveIMG.Source);
+            AddToRoll(HeldDiceList[4], heldFiveIMG.Source);
             heldFiveIMG.Visibility = Visibility.Collapsed;
         }
 
@@ -290,7 +312,7 @@ namespace Yahtzee
         {
             var _allDice = new List<DieModel>();
             _allDice.AddRange(DiceList);
-            foreach (DieModel _die in HeldDice)
+            foreach (DieModel _die in HeldDiceList)
             {
                 if (!_allDice.Contains(_die))
                 {
