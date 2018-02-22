@@ -29,6 +29,12 @@ namespace Yahtzee.Scorecard
                     Value = 0,
                     Used = false,
                 },
+                new Score
+                {
+                    Name = "Full House",
+                    Value = 0,
+                    Used = false,
+                },
             };
             AvailableNumbers = new List<int>();
             var x = 1;
@@ -75,6 +81,20 @@ namespace Yahtzee.Scorecard
                 {
                     _score.Value += _die.Value;
                 }
+            }
+            else
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddFullHouse (List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Full House");
+            if (VerifyScore.FullHouse(_diceList))
+            {
+                _score.Value = 25;
             }
             else
             {

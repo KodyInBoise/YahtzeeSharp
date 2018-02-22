@@ -86,5 +86,42 @@ namespace Yahtzee.ScoreHelper
 
             return false;
         }
+
+        public static bool FullHouse(List<DieModel> _diceList)
+        {
+            var _exemptDice = new List<DieModel>();
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                foreach (DieModel _compareDie in _diceList)
+                {
+                    if (_compareDie.Value == _die.Value)
+                    {
+                        x++;
+                    }
+                    else
+                    {
+                        _exemptDice.Add(_compareDie);
+                    }
+                }
+
+                if (x >= 3)
+                {
+                    var a = _exemptDice[0];
+                    var b = _exemptDice[1];
+                    if (a.Value == b.Value)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    _exemptDice = new List<DieModel>();
+                    x = 0;
+                }
+            }
+
+            return false;
+        }
     }
 }

@@ -84,8 +84,8 @@ namespace Yahtzee
             rollTB.Text = $"Roll: {ActiveTurn.RollCount} of 3";
             if (ActiveTurn.RollCount == 3)
             {
-                rollBTN.Visibility = Visibility.Collapsed;
-                nextTurnBTN.Visibility = Visibility.Visible;
+                //rollBTN.Visibility = Visibility.Collapsed;
+                //nextTurnBTN.Visibility = Visibility.Visible;
             }
         }
 
@@ -298,7 +298,7 @@ namespace Yahtzee
                     _allDice.Add(_die);
                 }
             }
-            ActivePlayer.Scorecard.AddFourOfAKind(_allDice);
+            ActivePlayer.Scorecard.AddFullHouse(_allDice);
         }
     }
 }
