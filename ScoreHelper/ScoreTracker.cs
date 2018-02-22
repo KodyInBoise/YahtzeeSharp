@@ -17,70 +17,133 @@ namespace Yahtzee.Scorecard
         {
             ScoreList = new List<Score>
             {
-                new Score
-                {
-                    Name = "Three of a Kind",
-                    Value = 0,
-                    Used = false,
-                },
-                new Score
-                {
-                    Name = "Four of a Kind",
-                    Value = 0,
-                    Used = false,
-                },
-                new Score
-                {
-                    Name = "Full House",
-                    Value = 0,
-                    Used = false,
-                },
-                new Score
-                {
-                    Name = "Small Straight",
-                    Value = 0,
-                    Used = false,
-                },
-                new Score
-                {
-                    Name = "Large Straight",
-                    Value = 0,
-                    Used = false,
-                },
-                new Score
-                {
-                    Name = "Yahtzee",
-                    Value = 0,
-                    Used = false,
-                },
-                new Score
-                {
-                    Name = "Chance",
-                    Value = 0,
-                    Used = false,
-                }
+                new Score("Aces", true),
+                new Score("Twos", true),
+                new Score("Threes", true),
+                new Score("Fours", true),
+                new Score("Fives", true),
+                new Score("Sixes", true),
+                new Score("3 of a kind"),
+                new Score("4 of a kind"),
+                new Score("Full House"),
+                new Score("Small Straight"),
+                new Score("Large Straight"),
+                new Score("Yahtzee"),
+                new Score("Chance"),
             };
-            AvailableNumbers = new List<int>();
-            var x = 1;
-            while (x < 7)
-            {
-                AvailableNumbers.Add(x);
-                x++;
-            }
         }
 
-        public void AddScore(List<DieModel> _diceList, int _number)
+        public void AddOnes(List<DieModel> _diceList)
         {
-            var _newScore = VerifyScore.NumberScore(this, _diceList, _number);
-            if (_newScore != null)
+            var _score = ScoreList.Find(s => s.Name == "Ones");
+            var x = 0;
+            foreach (DieModel _die in _diceList)
             {
-                ScoreList.Add(_newScore);
+                if (_die.Value == 1)
+                {
+                    _score.Value += 1;
+                    x++;
+                }
             }
+            if (x < 3)
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddTwos(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Twos");
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                if (_die.Value == 2)
+                {
+                    _score.Value += 2;
+                }
+            }
+            if (x < 3)
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddThrees(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Threes");
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                if (_die.Value == 3)
+                {
+                    _score.Value += 3;
+                }
+            }
+            if (x < 3)
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddFours(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Fours");
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                if (_die.Value == 4)
+                {
+                    _score.Value += 4;
+                }
+            }
+            if (x < 3)
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddFives(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Fives");
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                if (_die.Value == 5)
+                {
+                    _score.Value += 5;
+                }
+            }
+            if (x < 3)
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddSixes(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Sixes");
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                if (_die.Value == 6)
+                {
+                    _score.Value += 6;
+                }
+            }
+            if (x < 3)
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
         }
 
         public void AddThreeOfAKind(List<DieModel> _diceList)
         {
-            var _valid = VerifyScore.ThreeOfAKind(_diceList);
             var _score = ScoreList.Find(s => s.Name == "Three of a Kind");
             if (VerifyScore.ThreeOfAKind(_diceList))
             {
@@ -184,6 +247,23 @@ namespace Yahtzee.Scorecard
                 _score.Value += _die.Value;
             }
             _score.Used = true;
+        }
+
+        public int TotalScore()
+        {
+            var _total = 0;
+            var _bonusCount = 0;
+            foreach(Score _score in ScoreList)
+            {
+                if (_score.CountsBonus) _bonusCount += _score.Value;
+                _total += _score.Value;
+            }
+            if (_bonusCount >= 63)
+            {
+                _total += 35;
+            }
+
+            return _total;
         }
     }
 }
