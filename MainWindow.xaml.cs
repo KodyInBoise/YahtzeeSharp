@@ -26,7 +26,7 @@ namespace Yahtzee
         public GameTracker CurrentGame;
         public List<DieModel> DiceList;
         public List<DieModel> HeldDice;
-        public List<DieModel> RemovedDice;
+        private List<Image> HeldDiceImages;
         private TurnModel ActiveTurn;
         private List<TurnModel> TurnList;
 
@@ -36,7 +36,16 @@ namespace Yahtzee
             LoadData();
             DiceList = DiceHelper.NewDiceSet();
             HeldDice = new List<DieModel>();
-            RemovedDice = new List<DieModel>();
+
+            HeldDiceImages = new List<Image>
+            {
+                heldOneIMG,
+                heldTwoIMG,
+                heldThreeIMG,
+                heldFourIMG,
+                heldFiveIMG,
+            };
+
             rollBTN.Visibility = Visibility.Collapsed;
         }
         
@@ -164,6 +173,7 @@ namespace Yahtzee
                 Player = ActivePlayer,
                 StartTime = DateTime.Today.TimeOfDay.ToString(),
             };
+            ResetHeldDice();           
 
             playerTB.Visibility = Visibility.Visible;
             rollTB.Visibility = Visibility.Visible;
@@ -184,7 +194,7 @@ namespace Yahtzee
                 Player = ActivePlayer,
             };
             DiceList = DiceHelper.NewDiceSet();
-            HeldDice = new List<DieModel>();
+            ResetHeldDice();
 
             turnTB.Text = $"Turn: {TurnList.Count + 1}";
             nextTurnBTN.Visibility = Visibility.Collapsed;
@@ -196,40 +206,54 @@ namespace Yahtzee
             StartNextTurn();
         }
 
-        private void HoldDie(int _index)
+        private void HoldDie(int _index, ImageSource _imageSource)
         {
+            var _heldCount = HeldDice.Count;
+            var _newHeldIMG = HeldDiceImages[_heldCount];
+            _newHeldIMG.Source = _imageSource;
+            _newHeldIMG.Visibility = Visibility.Visible;
             HeldDice.Add(DiceList[_index]);
             heldLB.Items.Add(DiceList[_index]);
+
         }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(0);
+            HoldDie(0, diceOneIMG.Source);
             diceOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(1);
+            HoldDie(1, diceTwoIMG.Source);
             diceTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(2);
+            HoldDie(2, diceThreeIMG.Source);
             diceThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(3);
+            HoldDie(3, diceFourIMG.Source);
             diceFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(4);
+            HoldDie(4, diceFiveIMG.Source);
             diceFiveIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void ResetHeldDice()
+        {
+            foreach (Image _image in HeldDiceImages)
+            {
+                _image.Visibility = Visibility.Collapsed;
+            }
+            HeldDice = new List<DieModel>();
         }
     }
 }
