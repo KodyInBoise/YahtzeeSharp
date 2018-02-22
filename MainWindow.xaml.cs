@@ -298,7 +298,7 @@ namespace Yahtzee
                     _allDice.Add(_die);
                 }
             }
-            ActivePlayer.Scorecard.AddLargeStraight(_allDice);
+            ActivePlayer.Scorecard.AddChance(_allDice);
         }
     }
 }

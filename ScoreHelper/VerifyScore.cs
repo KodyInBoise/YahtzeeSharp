@@ -157,5 +157,19 @@ namespace Yahtzee.ScoreHelper
 
             return false;
         }
+
+        public static bool Yahtzee(List<DieModel> _diceList)
+        {
+            var _value = _diceList[0].Value;
+            foreach (DieModel _die in _diceList)
+            {
+                if (_die.Value != _value)
+                {
+                    return false;
+                }               
+            }
+
+            return true;
+        }
     }
 }

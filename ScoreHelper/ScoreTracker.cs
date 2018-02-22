@@ -47,6 +47,18 @@ namespace Yahtzee.Scorecard
                     Value = 0,
                     Used = false,
                 },
+                new Score
+                {
+                    Name = "Yahtzee",
+                    Value = 0,
+                    Used = false,
+                },
+                new Score
+                {
+                    Name = "Chance",
+                    Value = 0,
+                    Used = false,
+                }
             };
             AvailableNumbers = new List<int>();
             var x = 1;
@@ -139,6 +151,37 @@ namespace Yahtzee.Scorecard
             else
             {
                 _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddYahtzee(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Yahtzee");
+            if (VerifyScore.Yahtzee(_diceList))
+            {
+                if (_score.Used)
+                {
+                    _score.Value += 100;
+                }
+                else
+                {
+                    _score.Value = 50;
+                }
+            }
+            else
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddChance(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Chance");
+            foreach (DieModel _die in _diceList)
+            {
+                _score.Value += _die.Value;
             }
             _score.Used = true;
         }
