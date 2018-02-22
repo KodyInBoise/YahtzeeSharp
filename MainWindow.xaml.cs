@@ -26,6 +26,9 @@ namespace Yahtzee
         public GameTracker CurrentGame;
         public List<DieModel> DiceList;
         public List<DieModel> HeldDice;
+        public List<DieModel> RemovedDice;
+        private TurnModel ActiveTurn;
+        private List<TurnModel> TurnList;
 
         public MainWindow()
         {
@@ -33,6 +36,8 @@ namespace Yahtzee
             LoadData();
             DiceList = DiceHelper.NewDiceSet();
             HeldDice = new List<DieModel>();
+            RemovedDice = new List<DieModel>();
+            rollBTN.Visibility = Visibility.Collapsed;
         }
         
         private void LoadData()
@@ -47,6 +52,11 @@ namespace Yahtzee
 
         private async void RollDice()
         {
+            foreach (DieModel _die in HeldDice)
+            {
+                DiceList.Remove(_die);
+            }
+
             var _helper = new DiceHelper();
             await Task.Run(() => _helper.RollDice(DiceList));
 
@@ -58,11 +68,12 @@ namespace Yahtzee
 
             DisplayDiceImages(DiceList);
 
-            CurrentGame.CurrentRoll++;
-            rollTB.Text = $"Roll: {CurrentGame.CurrentRoll} of 3";
-            if (CurrentGame.CurrentRoll == 3)
+            ActiveTurn.RollCount++;
+            rollTB.Text = $"Roll: {ActiveTurn.RollCount} of 3";
+            if (ActiveTurn.RollCount == 3)
             {
                 rollBTN.Visibility = Visibility.Collapsed;
+                nextTurnBTN.Visibility = Visibility.Visible;
             }
         }
 
@@ -147,13 +158,78 @@ namespace Yahtzee
                 Name = "Kody",
                 Scorecard = new ScoreTracker()
             };
-            
+            TurnList = new List<TurnModel>();
+            ActiveTurn = new TurnModel
+            {
+                Player = ActivePlayer,
+                StartTime = DateTime.Today.TimeOfDay.ToString(),
+            };
+
             playerTB.Visibility = Visibility.Visible;
             rollTB.Visibility = Visibility.Visible;
             turnTB.Visibility = Visibility.Visible;
+            rollBTN.Visibility = Visibility.Visible;
 
             startBTN.Visibility = Visibility.Collapsed;
         }
 
+        private void StartNextTurn()
+        {
+            ActiveTurn.EndTime = DateTime.Today.TimeOfDay.ToString();
+            TurnList.Add(ActiveTurn);
+
+            ActiveTurn = new TurnModel
+            {
+                StartTime = DateTime.Today.TimeOfDay.ToString(),
+                Player = ActivePlayer,
+            };
+            DiceList = DiceHelper.NewDiceSet();
+            HeldDice = new List<DieModel>();
+
+            turnTB.Text = $"Turn: {TurnList.Count + 1}";
+            nextTurnBTN.Visibility = Visibility.Collapsed;
+            rollBTN.Visibility = Visibility.Visible;
+        }
+
+        private void nextTurnBTN_Click(object sender, RoutedEventArgs e)
+        {
+            StartNextTurn();
+        }
+
+        private void HoldDie(int _index)
+        {
+            HeldDice.Add(DiceList[_index]);
+            heldLB.Items.Add(DiceList[_index]);
+        }
+
+        private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HoldDie(0);
+            diceOneIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void diceTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HoldDie(1);
+            diceTwoIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void diceThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HoldDie(2);
+            diceThreeIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void diceFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HoldDie(3);
+            diceFourIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void diceFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HoldDie(4);
+            diceFiveIMG.Visibility = Visibility.Collapsed;
+        }
     }
 }

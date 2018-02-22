@@ -73,6 +73,7 @@
     <Compile Include="Utilities\DieModel.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="Utilities\PlayerModel.cs" />
+    <Compile Include="Utilities\TurnModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
