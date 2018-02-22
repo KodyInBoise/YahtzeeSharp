@@ -11,5 +11,6 @@ namespace Yahtzee.Scorecard
     {
         public string Name { get; set; }
         public int Value { get; set; }
+        public bool Used { get; set; }
     }
 }

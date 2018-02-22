@@ -70,6 +70,11 @@ namespace Yahtzee
 
         private async void RollDice()
         {
+            foreach (DieModel _die in HeldDice)
+            {
+                DiceList.Remove(_die);
+            }
+
             var _helper = new DiceHelper();
             await Task.Run(() => _helper.RollDice(DiceList));
 
@@ -199,7 +204,7 @@ namespace Yahtzee
             _newHeldIMG.Source = _imageSource;
             _newHeldIMG.Visibility = Visibility.Visible;
             HeldDice.Add(_die);
-            DiceList.Remove(_die);
+            //DiceList.Remove(_die);
         }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
@@ -279,6 +284,21 @@ namespace Yahtzee
         {
             AddToRoll(HeldDice[4], heldFiveIMG.Source);
             heldFiveIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var _allDice = new List<DieModel>();
+            _allDice.AddRange(DiceList);
+            foreach (DieModel _die in HeldDice)
+            {
+                if (!_allDice.Contains(_die))
+                {
+
+                    _allDice.Add(_die);
+                }
+            }
+            ActivePlayer.Scorecard.AddThreeOfAKind(_allDice);
         }
     }
 }

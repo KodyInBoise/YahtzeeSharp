@@ -15,7 +15,15 @@ namespace Yahtzee.Scorecard
 
         public ScoreTracker()
         {
-            ScoreList = new List<Score>();
+            ScoreList = new List<Score>
+            {
+                new Score
+                {
+                    Name = "Three of a Kind", 
+                    Value = 0,
+                    Used = false,
+                },
+            };
             AvailableNumbers = new List<int>();
             var x = 1;
             while (x < 7)
@@ -32,6 +40,24 @@ namespace Yahtzee.Scorecard
             {
                 ScoreList.Add(_newScore);
             }
+        }
+
+        public void AddThreeOfAKind(List<DieModel> _diceList)
+        {
+            var _valid = VerifyScore.ThreeOfAKind(_diceList);
+            var _score = ScoreList.Find(s => s.Name == "Three of a Kind");
+            if (VerifyScore.ThreeOfAKind(_diceList))
+            {
+                foreach (DieModel _die in _diceList)
+                {
+                    _score.Value += _die.Value;
+                }
+            }
+            else
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
         }
     }
 }

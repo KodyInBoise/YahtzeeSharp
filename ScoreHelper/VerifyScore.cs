@@ -34,5 +34,27 @@ namespace Yahtzee.ScoreHelper
                 return _numberScore;
             }
         }
+
+        public static bool ThreeOfAKind(List<DieModel> _diceList)
+        {
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                foreach (DieModel _compareDie in _diceList)
+                {
+                    if (_compareDie.Value == _die.Value)
+                    {
+                        x++;
+                    }
+
+                    if (x >= 3)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
