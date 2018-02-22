@@ -25,6 +25,7 @@ namespace Yahtzee
         public PlayerModel ActivePlayer;
         public GameTracker CurrentGame;
         public List<DieModel> DiceList;
+        private List<Image> DiceImages;
         public List<DieModel> HeldDice;
         private List<Image> HeldDiceImages;
         private TurnModel ActiveTurn;
@@ -37,6 +38,14 @@ namespace Yahtzee
             DiceList = DiceHelper.NewDiceSet();
             HeldDice = new List<DieModel>();
 
+            DiceImages = new List<Image>
+            {
+                diceOneIMG,
+                diceTwoIMG,
+                diceThreeIMG,
+                diceFourIMG,
+                diceFiveIMG,
+            };
             HeldDiceImages = new List<Image>
             {
                 heldOneIMG,
@@ -61,19 +70,8 @@ namespace Yahtzee
 
         private async void RollDice()
         {
-            foreach (DieModel _die in HeldDice)
-            {
-                DiceList.Remove(_die);
-            }
-
             var _helper = new DiceHelper();
             await Task.Run(() => _helper.RollDice(DiceList));
-
-            diceLB.Items.Clear();
-            foreach (DieModel _DieModel in DiceList)
-            {
-                diceLB.Items.Add(_DieModel);
-            }
 
             DisplayDiceImages(DiceList);
 
@@ -136,22 +134,10 @@ namespace Yahtzee
             }
         }
 
-        private void holdBTN_Click(object sender, RoutedEventArgs e)
-        {
-            var _selectedDieModel = (DieModel) diceLB.SelectedItem;
-            DiceList.Remove(_selectedDieModel);
-            HeldDice.Add(_selectedDieModel);
-            diceLB.Items.Remove(_selectedDieModel);
-            heldLB.Items.Add(_selectedDieModel);
-        }
-
         private void unholdBTN_Click(object sender, RoutedEventArgs e)
         {
-            var _selectedDieModel = (DieModel) heldLB.SelectedItem;
-            HeldDice.Remove(_selectedDieModel);
-            DiceList.Add(_selectedDieModel);
-            heldLB.Items.Remove(_selectedDieModel);
-            diceLB.Items.Add(_selectedDieModel);
+            //HeldDice.Remove(_selectedDieModel);
+            //DiceList.Add(_selectedDieModel);
         }
 
         private void startBTN_Click(object sender, RoutedEventArgs e)
@@ -206,44 +192,43 @@ namespace Yahtzee
             StartNextTurn();
         }
 
-        private void HoldDie(int _index, ImageSource _imageSource)
+        private void HoldDie(DieModel _die, ImageSource _imageSource)
         {
             var _heldCount = HeldDice.Count;
             var _newHeldIMG = HeldDiceImages[_heldCount];
             _newHeldIMG.Source = _imageSource;
             _newHeldIMG.Visibility = Visibility.Visible;
-            HeldDice.Add(DiceList[_index]);
-            heldLB.Items.Add(DiceList[_index]);
-
+            HeldDice.Add(_die);
+            DiceList.Remove(_die);
         }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(0, diceOneIMG.Source);
+            HoldDie(DiceList[0], diceOneIMG.Source);
             diceOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(1, diceTwoIMG.Source);
+            HoldDie(DiceList[1], diceTwoIMG.Source);
             diceTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(2, diceThreeIMG.Source);
+            HoldDie(DiceList[2], diceThreeIMG.Source);
             diceThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(3, diceFourIMG.Source);
+            HoldDie(DiceList[3], diceFourIMG.Source);
             diceFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(4, diceFiveIMG.Source);
+            HoldDie(DiceList[4], diceFiveIMG.Source);
             diceFiveIMG.Visibility = Visibility.Collapsed;
         }
 
@@ -254,6 +239,46 @@ namespace Yahtzee
                 _image.Visibility = Visibility.Collapsed;
             }
             HeldDice = new List<DieModel>();
+        }
+
+        private void AddToRoll(DieModel _die, ImageSource _imageSource)
+        {
+            var _diceCount = DiceList.Count;
+            var _newDiceIMG = DiceImages[_diceCount];
+            _newDiceIMG.Source = _imageSource;
+            _newDiceIMG.Visibility = Visibility.Visible;
+            DiceList.Add(_die);
+            HeldDice.Remove(_die);
+        }
+
+        private void heldOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AddToRoll(HeldDice[0], heldOneIMG.Source);
+            heldOneIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void heldTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AddToRoll(HeldDice[1], heldTwoIMG.Source);
+            heldTwoIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void heldThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AddToRoll(HeldDice[2], heldThreeIMG.Source);
+            heldThreeIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void heldFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AddToRoll(HeldDice[3], heldFourIMG.Source);
+            heldFourIMG.Visibility = Visibility.Collapsed;
+        }
+
+        private void heldFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AddToRoll(HeldDice[4], heldFiveIMG.Source);
+            heldFiveIMG.Visibility = Visibility.Collapsed;
         }
     }
 }

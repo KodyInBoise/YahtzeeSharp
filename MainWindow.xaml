@@ -11,9 +11,6 @@
         <TabControl HorizontalAlignment="Left" Height="598" Margin="1,0,0,0" VerticalAlignment="Top" Width="958">
             <TabItem x:Name="gameTAB" Header="Game" FontFamily="Verdana" FontSize="20">
                 <Grid Background="#FFE5E5E5" Margin="0,-19,0,0">
-                    <ListBox x:Name="diceLB" FontFamily="Verdana" FontSize="16" Style="{StaticResource RoundListBox}" HorizontalAlignment="Left" Height="94" Margin="470,10,0,0" VerticalAlignment="Top" Width="115" Background="White" FontWeight="Normal"/>
-                    <Button x:Name="holdBTN" FontFamily="Verdana" FontSize="14" Content="Hold" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="470,109,0,0" VerticalAlignment="Top" Width="115" Click="holdBTN_Click" Height="40" Background="#FF52C71B"/>
-                    <ListBox x:Name="heldLB" FontFamily="Verdana" FontSize="16" Style="{StaticResource RoundListBox}" HorizontalAlignment="Left" Height="94" Margin="603,10,0,0" VerticalAlignment="Top" Width="115" Background="White" FontWeight="Normal"/>
                     <Button x:Name="startBTN" Content="New Game" Style="{StaticResource RoundButtonTemplate}" FontFamily="Verdana" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="769,510,0,0" VerticalAlignment="Top" Width="173" Height="61" Click="startBTN_Click" Background="#FFC91515"/>
                     <TextBlock x:Name="playerTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,35,0,0" TextWrapping="Wrap" Text="Player: Player 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,109,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
@@ -27,11 +24,11 @@
                     <Button x:Name="nextTurnBTN" FontFamily="Verdana" FontSize="28"  Content="Next Turn" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="490,396,0,0" VerticalAlignment="Top" Width="325" Height="80" Background="#FF3DBB18" Visibility="Collapsed" Click="nextTurnBTN_Click"/>
 
                     <GroupBox x:Name="heldGB" Header="Held" HorizontalAlignment="Left" Height="251" Margin="24,249,0,0" VerticalAlignment="Top" Width="185" BorderBrush="White" BorderThickness="1" FontWeight="Bold"/>
-                    <Image x:Name="heldOneIMG" HorizontalAlignment="Left" Height="60" Margin="42,293,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="diceOneIMG_MouseDown"/>
-                    <Image x:Name="heldTwoIMG" HorizontalAlignment="Left" Height="60" Margin="126,293,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="diceOneIMG_MouseDown"/>
-                    <Image x:Name="heldThreeIMG" HorizontalAlignment="Left" Height="60" Margin="42,358,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="diceOneIMG_MouseDown"/>
-                    <Image x:Name="heldFourIMG" HorizontalAlignment="Left" Height="60" Margin="126,358,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="diceOneIMG_MouseDown"/>
-                    <Image x:Name="heldFiveIMG" HorizontalAlignment="Left" Height="60" Margin="42,423,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="diceOneIMG_MouseDown"/>
+                    <Image x:Name="heldOneIMG" HorizontalAlignment="Left" Height="60" Margin="42,293,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldOneIMG_MouseDown"/>
+                    <Image x:Name="heldTwoIMG" HorizontalAlignment="Left" Height="60" Margin="126,293,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldTwoIMG_MouseDown"/>
+                    <Image x:Name="heldThreeIMG" HorizontalAlignment="Left" Height="60" Margin="42,358,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldThreeIMG_MouseDown"/>
+                    <Image x:Name="heldFourIMG" HorizontalAlignment="Left" Height="60" Margin="126,358,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldFourIMG_MouseDown"/>
+                    <Image x:Name="heldFiveIMG" HorizontalAlignment="Left" Height="60" Margin="42,423,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldFiveIMG_MouseDown"/>
                     <Button x:Name="unholdBTN" FontFamily="Verdana" FontSize="14" Content="Add to Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="24,505,0,0" VerticalAlignment="Top" Width="185" Height="55" Click="unholdBTN_Click"/>
                 </Grid>
             </TabItem>
