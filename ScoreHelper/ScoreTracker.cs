@@ -19,7 +19,7 @@ namespace Yahtzee.Scorecard
             {
                 new Score
                 {
-                    Name = "Three of a Kind", 
+                    Name = "Three of a Kind",
                     Value = 0,
                     Used = false,
                 },
@@ -32,6 +32,18 @@ namespace Yahtzee.Scorecard
                 new Score
                 {
                     Name = "Full House",
+                    Value = 0,
+                    Used = false,
+                },
+                new Score
+                {
+                    Name = "Small Straight",
+                    Value = 0,
+                    Used = false,
+                },
+                new Score
+                {
+                    Name = "Large Straight",
                     Value = 0,
                     Used = false,
                 },
@@ -89,12 +101,40 @@ namespace Yahtzee.Scorecard
             _score.Used = true;
         }
 
-        public void AddFullHouse (List<DieModel> _diceList)
+        public void AddFullHouse(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Full House");
             if (VerifyScore.FullHouse(_diceList))
             {
                 _score.Value = 25;
+            }
+            else
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddSmallStraight(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Small Straight");
+            if (VerifyScore.SmallStraight(_diceList))
+            {
+                _score.Value = 30;
+            }
+            else
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddLargeStraight(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Large Straight");
+            if (VerifyScore.LargeStraight(_diceList))
+            {
+                _score.Value = 40;
             }
             else
             {

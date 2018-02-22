@@ -123,5 +123,39 @@ namespace Yahtzee.ScoreHelper
 
             return false;
         }
+
+        public static bool SmallStraight(List<DieModel> _diceList)
+        {
+            var _values = _diceList.Select(x => x.Value);
+            if (_values.Contains(1) && _values.Contains(2) && _values.Contains(3) && _values.Contains(4))
+            {
+                return true;
+            }
+            if (_values.Contains(2) && _values.Contains(3) && _values.Contains(4) && _values.Contains(5))
+            {
+                return true;
+            }
+            if (_values.Contains(3) && _values.Contains(4) && _values.Contains(5) && _values.Contains(6))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool LargeStraight(List<DieModel> _diceList)
+        {
+            var _values = _diceList.Select(x => x.Value);
+            if (_values.Contains(1) && _values.Contains(2) && _values.Contains(3) && _values.Contains(4) && _values.Contains(5))
+            {
+                return true;
+            }
+            if (_values.Contains(2) && _values.Contains(3) && _values.Contains(4) && _values.Contains(5) && _values.Contains(6))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
