@@ -10,6 +10,7 @@ namespace Yahtzee.Utilities
     {
         public int Id { get; set; }
         public int Value { get; set; }
+        public bool IsHeld { get; set; }
 
         public override string ToString()
         {

@@ -33,6 +33,8 @@ namespace Yahtzee
         private TurnModel ActiveTurn;
         private List<TurnModel> TurnList;
 
+        Dictionary<Image, DieModel> DiceImageDictionary;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +44,7 @@ namespace Yahtzee
             OpenDiceImages = new List<Image>();
             OpenHeldImages = new List<Image>();
 
+            DiceImageDictionary = new Dictionary<Image, DieModel>();
             DiceImages = new List<Image>
             {
                 diceOneIMG,
@@ -118,21 +121,33 @@ namespace Yahtzee
                 {
                     case 1:
                         _imageList[x].Source = ImageHelper.DiceOne();
+                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 2:
                         _imageList[x].Source = ImageHelper.DiceTwo();
+                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 3:
                         _imageList[x].Source = ImageHelper.DiceThree();
+                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 4:
                         _imageList[x].Source = ImageHelper.DiceFour();
+                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 5:
                         _imageList[x].Source = ImageHelper.DiceFive();
+                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 6:
                         _imageList[x].Source = ImageHelper.DiceSix();
+                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                 }
                 x++;
@@ -207,6 +222,7 @@ namespace Yahtzee
             StartNextTurn();
         }
 
+        /*
         private void HoldDie(DieModel _die, ImageSource _imageSource)
         {
             var _heldCount = HeldDiceList.Count;
@@ -215,38 +231,61 @@ namespace Yahtzee
             _newHeldIMG.Visibility = Visibility.Visible;
             HeldDiceList.Add(_die);
         }
+        */
+        private void HoldDie(Image _diceImage)
+        {
+            Image _newHeldImage = null;
+            DieModel _heldDie = null;
+            if (DiceImageDictionary.ContainsKey(_diceImage))
+            {
+                _heldDie = DiceImageDictionary[_diceImage];
+                _heldDie.IsHeld = true;
+                //HeldDiceList.Add(_die);
+            }
+
+            if (!DiceImageDictionary.ContainsKey(heldOneIMG)) _newHeldImage = heldOneIMG;
+            else if (!DiceImageDictionary.ContainsKey(heldTwoIMG)) _newHeldImage = heldTwoIMG;
+            else if (!DiceImageDictionary.ContainsKey(heldThreeIMG)) _newHeldImage = heldThreeIMG;
+            else if (!DiceImageDictionary.ContainsKey(heldFourIMG)) _newHeldImage = heldFourIMG;
+            else if (!DiceImageDictionary.ContainsKey(heldFiveIMG)) _newHeldImage = heldFiveIMG;
+            DiceImageDictionary.Remove(_diceImage);
+            DiceImageDictionary.Add(_newHeldImage, _heldDie);
+
+            _newHeldImage.Source = _diceImage.Source;
+            _newHeldImage.Visibility = Visibility.Visible;
+        }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(DiceList[0], diceOneIMG.Source);
+            HoldDie(diceOneIMG);
             OpenDiceImages.Add(diceOneIMG);
             diceOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(DiceList[1], diceTwoIMG.Source);
+            HoldDie(diceTwoIMG);
             OpenDiceImages.Add(diceTwoIMG);
             diceTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(DiceList[2], diceThreeIMG.Source);
+            HoldDie(diceThreeIMG);
             OpenDiceImages.Add(diceThreeIMG);
             diceThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(DiceList[3], diceFourIMG.Source);
+            HoldDie(diceFourIMG);
             OpenDiceImages.Add(diceFourIMG);
             diceFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(DiceList[4], diceFiveIMG.Source);
+            HoldDie(diceFiveIMG);
             OpenDiceImages.Add(diceFiveIMG);
             diceFiveIMG.Visibility = Visibility.Collapsed;
         }
@@ -274,7 +313,6 @@ namespace Yahtzee
             }
             _newDiceIMG.Source = _imageSource;
             _newDiceIMG.Visibility = Visibility.Visible;
-            DiceList.Add(_die);
             HeldDiceList.Remove(_die);
         }
 
@@ -310,6 +348,7 @@ namespace Yahtzee
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var _allDice = new List<DieModel>();
             _allDice.AddRange(DiceList);
             foreach (DieModel _die in HeldDiceList)
@@ -321,6 +360,10 @@ namespace Yahtzee
                 }
             }
             ActivePlayer.Scorecard.AddChance(_allDice);
+            */
+            //var _test = GetImageDice(heldTwoIMG);
+            //_test = GetImageDice(heldThreeIMG);
+            //var _test = GetImageDice(diceFourIMG);
         }
     }
 }
