@@ -64,6 +64,11 @@ namespace Yahtzee
             }
         }
 
+        private void DisplayDiceImages(List<DieModel> _diceList)
+        {
+
+        }
+
         private void holdBTN_Click(object sender, RoutedEventArgs e)
         {
             var _selectedDieModel = (DieModel) diceLB.SelectedItem;

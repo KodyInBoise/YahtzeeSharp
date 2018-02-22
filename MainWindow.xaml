@@ -19,7 +19,12 @@
                     <TextBlock x:Name="playerTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="82,58,0,0" TextWrapping="Wrap" Text="Player: Player 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="82,132,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="turnTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="82,95,0,0" TextWrapping="Wrap" Text="Turn: 9" VerticalAlignment="Top" FontWeight="Normal"/>
-                    <Button x:Name="rollBTN" FontFamily="Verdana" FontSize="28"  Content="Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="493,366,0,0" VerticalAlignment="Top" Width="325" Click="rollBTN_Click" Height="80" Background="#FF2A62A5"/>
+                    <Button x:Name="rollBTN" FontFamily="Verdana" FontSize="28"  Content="Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="490,396,0,0" VerticalAlignment="Top" Width="325" Click="rollBTN_Click" Height="80" Background="#FF2A62A5"/>
+                    <Image x:Name="diceOneIMG" HorizontalAlignment="Left" Height="75" Margin="489,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-one.png"/>
+                    <Image x:Name="diceTwoIMG" HorizontalAlignment="Left" Height="75" Margin="606,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-two.png"/>
+                    <Image x:Name="diceThreeIMG" HorizontalAlignment="Left" Height="75" Margin="727,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-three.png"/>
+                    <Image x:Name="diceFourIMG" HorizontalAlignment="Left" Height="75" Margin="559,266,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-four.png"/>
+                    <Image x:Name="diceFiveIMG" HorizontalAlignment="Left" Height="75" Margin="672,266,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-five.png"/>
                 </Grid>
             </TabItem>
         </TabControl>

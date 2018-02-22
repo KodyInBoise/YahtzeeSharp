@@ -71,6 +71,7 @@
     <Compile Include="Utilities\GameTracker.cs" />
     <Compile Include="Utilities\DiceHelper.cs" />
     <Compile Include="Utilities\DieModel.cs" />
+    <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="Utilities\PlayerModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -117,15 +118,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\yahtzee.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\dice-five.png" />
     <Resource Include="Images\dice-four.png" />
     <Resource Include="Images\dice-one.png" />
     <Resource Include="Images\dice-six.png" />
     <Resource Include="Images\dice-three.png" />
     <Resource Include="Images\dice-two.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\yahtzee.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
