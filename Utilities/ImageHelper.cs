@@ -10,6 +10,35 @@ namespace Yahtzee.Utilities
 {
     class ImageHelper
     {
+        public static BitmapImage GetDiceImage(int _number)
+        {
+            BitmapImage _numberImage = new BitmapImage();
+
+            switch (_number)
+            {
+                case 1:
+                    _numberImage.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, "Images", "dice-one.png"));
+                    break;
+                case 2:
+                    _numberImage.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, "Images", "dice-two.png"));
+                    break;
+                case 3:
+                    _numberImage.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, "Images", "dice-three.png"));
+                    break;
+                case 4:
+                    _numberImage.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, "Images", "dice-four.png"));
+                    break;
+                case 5:
+                    _numberImage.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, "Images", "dice-five.png"));
+                    break;
+                case 6:
+                    _numberImage.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, "Images", "dice-six.png"));
+                    break;
+            }
+
+            return _numberImage;
+        }
+
         public static BitmapImage DiceOne()
         {
             var path = Path.Combine(Environment.CurrentDirectory, "Images", "dice-one.png");

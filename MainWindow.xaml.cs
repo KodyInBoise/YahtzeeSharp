@@ -56,6 +56,8 @@ namespace Yahtzee
                 diceLB.Items.Add(_DieModel);
             }
 
+            DisplayDiceImages(DiceList);
+
             CurrentGame.CurrentRoll++;
             rollTB.Text = $"Roll: {CurrentGame.CurrentRoll} of 3";
             if (CurrentGame.CurrentRoll == 3)
@@ -66,7 +68,52 @@ namespace Yahtzee
 
         private void DisplayDiceImages(List<DieModel> _diceList)
         {
+            var _imageList = new List<Image>
+            {
+                diceOneIMG, 
+                diceTwoIMG,
+                diceThreeIMG, 
+                diceFourIMG,
+                diceFiveIMG
+            };
 
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                _imageList[x].Visibility = Visibility.Visible;
+                switch(_die.Value)
+                {
+                    case 1:
+                        _imageList[x].Source = ImageHelper.DiceOne();
+                        break;
+                    case 2:
+                        _imageList[x].Source = ImageHelper.DiceTwo();
+                        break;
+                    case 3:
+                        _imageList[x].Source = ImageHelper.DiceThree();
+                        break;
+                    case 4:
+                        _imageList[x].Source = ImageHelper.DiceFour();
+                        break;
+                    case 5:
+                        _imageList[x].Source = ImageHelper.DiceFive();
+                        break;
+                    case 6:
+                        _imageList[x].Source = ImageHelper.DiceSix();
+                        break;
+                }
+                x++;
+            }
+
+            if (_diceList.Count < 5)
+            {
+                var i = 4;
+                while (i > _diceList.Count - 1)
+                {
+                    _imageList[i].Visibility = Visibility.Collapsed;
+                    i--;
+                }
+            }
         }
 
         private void holdBTN_Click(object sender, RoutedEventArgs e)
