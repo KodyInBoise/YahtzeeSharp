@@ -60,7 +60,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ScoreHelper\Numbers.cs" />
     <Compile Include="ScoreHelper\Score.cs" />
     <Compile Include="ScoreHelper\ScoreTracker.cs" />
     <Compile Include="ScoreHelper\VerifyScore.cs" />

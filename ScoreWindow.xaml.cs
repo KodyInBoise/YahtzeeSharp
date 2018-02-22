@@ -35,6 +35,7 @@ namespace Yahtzee
 
         public void ShowScores()
         {
+            /*
             ScoreList = new List<Score>();
 
             var ones = new Score { Name = "1's", Value = 0}; ScoreList.Add(ones);
@@ -47,6 +48,7 @@ namespace Yahtzee
             CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = ScoreList;
+            */
         }
     }
 }
