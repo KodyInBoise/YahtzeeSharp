@@ -23,6 +23,12 @@ namespace Yahtzee.Scorecard
                     Value = 0,
                     Used = false,
                 },
+                new Score
+                {
+                    Name = "Four of a Kind",
+                    Value = 0,
+                    Used = false,
+                },
             };
             AvailableNumbers = new List<int>();
             var x = 1;
@@ -47,6 +53,23 @@ namespace Yahtzee.Scorecard
             var _valid = VerifyScore.ThreeOfAKind(_diceList);
             var _score = ScoreList.Find(s => s.Name == "Three of a Kind");
             if (VerifyScore.ThreeOfAKind(_diceList))
+            {
+                foreach (DieModel _die in _diceList)
+                {
+                    _score.Value += _die.Value;
+                }
+            }
+            else
+            {
+                _score.Value = 0;
+            }
+            _score.Used = true;
+        }
+
+        public void AddFourOfAKind(List<DieModel> _diceList)
+        {
+            var _score = ScoreList.Find(s => s.Name == "Four of a Kind");
+            if (VerifyScore.FourOfAKind(_diceList))
             {
                 foreach (DieModel _die in _diceList)
                 {

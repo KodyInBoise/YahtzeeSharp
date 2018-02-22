@@ -46,11 +46,41 @@ namespace Yahtzee.ScoreHelper
                     {
                         x++;
                     }
+                }
 
-                    if (x >= 3)
+                if (x >= 3)
+                {
+                    return true;
+                }
+                else
+                {
+                    x = 0;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool FourOfAKind(List<DieModel> _diceList)
+        {
+            var x = 0;
+            foreach (DieModel _die in _diceList)
+            {
+                foreach (DieModel _compareDie in _diceList)
+                {
+                    if (_compareDie.Value == _die.Value)
                     {
-                        return true;
+                        x++;
                     }
+                }
+
+                if (x >= 4)
+                {
+                    return true;
+                }
+                else
+                {
+                    x = 0;
                 }
             }
 
