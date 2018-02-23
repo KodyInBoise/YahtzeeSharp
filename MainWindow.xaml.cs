@@ -64,6 +64,11 @@ namespace Yahtzee
 
             rollBTN.Visibility = Visibility.Collapsed;
         }
+
+        private Dictionary<DieModel, Image> ResetDiceDictionary()
+        {           
+            return new Dictionary<DieModel, Image>();
+        }
         
         private void LoadData()
         {
