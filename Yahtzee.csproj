@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>packages\AWSSDK.Core.3.3.21.14\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.DynamoDBv2, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>packages\AWSSDK.DynamoDBv2.3.3.6\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
+    </Reference>
     <Reference Include="LiteDB, Version=4.1.1.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>packages\LiteDB.4.1.1\lib\net40\LiteDB.dll</HintPath>
     </Reference>
@@ -68,6 +74,7 @@
       <DependentUpon>ScoreWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\DataHelper.cs" />
+    <Compile Include="Utilities\GameHelper.cs" />
     <Compile Include="Utilities\GameTracker.cs" />
     <Compile Include="Utilities\DiceHelper.cs" />
     <Compile Include="Utilities\DieModel.cs" />
@@ -128,6 +135,9 @@
     <Resource Include="Images\dice-six.png" />
     <Resource Include="Images\dice-three.png" />
     <Resource Include="Images\dice-two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="packages\AWSSDK.DynamoDBv2.3.3.6\analyzers\dotnet\cs\AWSSDK.DynamoDBv2.CodeAnalysis.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
