@@ -201,12 +201,15 @@ namespace Yahtzee
         private void StartNewGame()
         {
             CurrentGame = new GameTracker();
-            ActivePlayer = new PlayerModel
+            if (CurrentGame.Players.Count == 0)
             {
-                Name = "Kody",
-                Scorecard = new ScoreTracker()
-            };
-            CurrentGame.Players.Add(ActivePlayer);
+                ActivePlayer = new PlayerModel
+                {
+                    Name = "Kody",
+                    Scorecard = new ScoreTracker()
+                };
+                CurrentGame.Players.Add(ActivePlayer);
+            }
             TurnList = new List<TurnModel>();
             ActiveTurn = new TurnModel
             {
@@ -533,6 +536,7 @@ namespace Yahtzee
 
         private void startGameBTN_Click(object sender, RoutedEventArgs e)
         {
+            MainTC.SelectedIndex = 1;
             StartNewGame();
         }
 
@@ -542,6 +546,22 @@ namespace Yahtzee
             addPlayerTB.Visibility = Visibility.Visible;
             playersLB.Visibility = Visibility.Visible;
             startGameBTN.Visibility = Visibility.Visible;
+        }
+
+        private void ShowActiveGame()
+        {
+            addPlayerTB.Visibility = Visibility.Collapsed;
+            addPlayerTB.Visibility = Visibility.Collapsed;
+            playersLB.Visibility = Visibility.Collapsed;
+            startGameBTN.Visibility = Visibility.Collapsed;
+        }
+
+        private void HideActiveGame()
+        {
+            playerTB.Visibility = Visibility.Collapsed;
+            turnTB.Visibility = Visibility.Collapsed;
+            rollTB.Visibility = Visibility.Collapsed;
+            scoreTB.Visibility = Visibility.Collapsed;
         }
     }
 }
