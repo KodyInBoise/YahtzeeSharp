@@ -64,6 +64,7 @@ namespace Yahtzee
             };
 
             rollBTN.Visibility = Visibility.Collapsed;
+            StartNewGame();
         }
 
         private Dictionary<Image, int> CreateRollingDictionary()
@@ -490,9 +491,7 @@ namespace Yahtzee
             if (!_score.Used)
             {
                 ActivePlayer.Scorecard.AddScore(_score, DiceList);
-                var _points = 0;
-                foreach (Score _scorePoints in ActivePlayer.Scorecard.ScoreList) _points += _scorePoints.Value;
-                scoreTB.Text = $"Score: {_points}";
+                scoreTB.Text = $"Score: {ActivePlayer.Scorecard.TotalScore()}";
             }
             else
             {
@@ -500,5 +499,49 @@ namespace Yahtzee
             }
         }
 
+        private void addPlayerBTN_Click(object sender, RoutedEventArgs e)
+        {
+            AddPlayer();
+        }
+
+        private void AddPlayer()
+        {
+            var _player = CurrentGame.Players.Find(x => x.Name == addPlayerTB.Text);
+            if (_player == null)
+            {
+                _player = new PlayerModel
+                {
+                    Name = addPlayerTB.Text
+                };
+                CurrentGame.Players.Add(_player);
+                playersLB.Items.Refresh();
+            }
+
+        }
+
+        private void settingsTAB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                playersLB.ItemsSource = CurrentGame.Players;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void startGameBTN_Click(object sender, RoutedEventArgs e)
+        {
+            StartNewGame();
+        }
+
+        private void ShowNewGame()
+        {
+            addPlayerTB.Visibility = Visibility.Visible;
+            addPlayerTB.Visibility = Visibility.Visible;
+            playersLB.Visibility = Visibility.Visible;
+            startGameBTN.Visibility = Visibility.Visible;
+        }
     }
 }

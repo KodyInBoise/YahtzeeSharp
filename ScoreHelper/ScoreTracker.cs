@@ -30,6 +30,7 @@ namespace Yahtzee.Scorecard
                 new Score("Large Straight"),
                 new Score("Yahtzee"),
                 new Score("Chance"),
+                new Score("Total")
             };
         }
 
@@ -99,7 +100,7 @@ namespace Yahtzee.Scorecard
             if (x < 3)
             {
                 _score.Value = 0;
-            }
+            }           
             _score.Used = true;
         }
 
@@ -311,14 +312,19 @@ namespace Yahtzee.Scorecard
             var _bonusCount = 0;
             foreach(Score _score in ScoreList)
             {
-                if (_score.CountsBonus) _bonusCount += _score.Value;
-                _total += _score.Value;
+                if (_score.Name != "Total")
+                {
+                    if (_score.CountsBonus) _bonusCount += _score.Value;
+                    _total += _score.Value;
+                }
             }
             if (_bonusCount >= 63)
             {
                 _total += 35;
             }
 
+            var _totalScore = ScoreList.Find(x => x.Name == "Total");
+            _totalScore.Value = _total;
             return _total;
         }
     }
