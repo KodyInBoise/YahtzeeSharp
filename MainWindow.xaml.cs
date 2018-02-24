@@ -637,5 +637,11 @@ namespace Yahtzee
             CurrentGame.Players.Remove(_selectedPlayer);
             playersLB.Items.Refresh();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ScoreGrid.ItemsSource = null;
+            ScoreGrid.ItemsSource = CurrentGame.GetScoreResultList();
+        }
     }
 }

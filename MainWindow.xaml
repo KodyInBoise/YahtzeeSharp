@@ -54,6 +54,7 @@
                         <ComboBoxItem Content="Current Game" IsSelected="True"/>
                         <ComboBoxItem Content="Past Scores"/>
                     </ComboBox>
+                    <Button Content="Button" HorizontalAlignment="Left" Margin="114,47,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
                 </Grid>
             </TabItem>
         </TabControl>
