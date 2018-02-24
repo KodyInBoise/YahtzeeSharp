@@ -33,7 +33,8 @@ namespace Yahtzee
         private TurnModel ActiveTurn;
         private List<TurnModel> TurnList;
 
-        Dictionary<Image, DieModel> DiceImageDictionary;
+        
+        Dictionary<Image, int> DiceImageDictionary;
 
         public MainWindow()
         {
@@ -44,7 +45,6 @@ namespace Yahtzee
             OpenDiceImages = new List<Image>();
             OpenHeldImages = new List<Image>();
 
-            DiceImageDictionary = new Dictionary<Image, DieModel>();
             DiceImages = new List<Image>
             {
                 diceOneIMG,
@@ -65,14 +65,27 @@ namespace Yahtzee
             rollBTN.Visibility = Visibility.Collapsed;
         }
 
-        private Dictionary<DieModel, Image> ResetDiceDictionary()
-        {           
-            return new Dictionary<DieModel, Image>();
+        private Dictionary<Image, int> CreateImageDictionary()
+        {
+            //Create dictionary with Image and dice id if showing one, 0 if open
+            var _dictionary = new Dictionary<Image, int>();
+            _dictionary.Add(diceOneIMG, 0);
+            _dictionary.Add(diceTwoIMG, 0);
+            _dictionary.Add(diceThreeIMG, 0);
+            _dictionary.Add(diceFourIMG, 0);
+            _dictionary.Add(diceFiveIMG, 0);
+            _dictionary.Add(heldOneIMG, 0);
+            _dictionary.Add(heldTwoIMG, 0);
+            _dictionary.Add(heldThreeIMG, 0);
+            _dictionary.Add(heldFourIMG, 0);
+            _dictionary.Add(heldFiveIMG, 0);
+
+            return _dictionary;
         }
         
         private void LoadData()
         {
-            var asdf = DataHelper.DataDirectoryPath();
+            var _data = DataHelper.DataDirectoryPath();
         }
 
         private void rollBTN_Click(object sender, RoutedEventArgs e)
@@ -126,33 +139,33 @@ namespace Yahtzee
                 {
                     case 1:
                         _imageList[x].Source = ImageHelper.DiceOne();
-                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        else DiceImageDictionary.Add(_imageList[x], _die);
+                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        //else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 2:
                         _imageList[x].Source = ImageHelper.DiceTwo();
-                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        else DiceImageDictionary.Add(_imageList[x], _die);
+                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        //else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 3:
                         _imageList[x].Source = ImageHelper.DiceThree();
-                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        else DiceImageDictionary.Add(_imageList[x], _die);
+                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                       // else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 4:
                         _imageList[x].Source = ImageHelper.DiceFour();
-                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        else DiceImageDictionary.Add(_imageList[x], _die);
+                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                       // else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 5:
                         _imageList[x].Source = ImageHelper.DiceFive();
-                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        else DiceImageDictionary.Add(_imageList[x], _die);
+                       // if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                       // else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 6:
                         _imageList[x].Source = ImageHelper.DiceSix();
-                        if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        else DiceImageDictionary.Add(_imageList[x], _die);
+                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
+                        //else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                 }
                 x++;
@@ -182,6 +195,7 @@ namespace Yahtzee
 
         private void StartNewGame()
         {
+            DiceImageDictionary = CreateImageDictionary();
             CurrentGame = new GameTracker();
             ActivePlayer = new PlayerModel
             {
@@ -215,6 +229,7 @@ namespace Yahtzee
                 Player = ActivePlayer,
             };
             DiceList = DiceHelper.NewDiceSet();
+            DiceImageDictionary = CreateImageDictionary();
             ResetHeldDice();
 
             turnTB.Text = $"Turn: {TurnList.Count + 1}";
@@ -243,7 +258,7 @@ namespace Yahtzee
             DieModel _heldDie = null;
             if (DiceImageDictionary.ContainsKey(_diceImage))
             {
-                _heldDie = DiceImageDictionary[_diceImage];
+                //_heldDie = DiceImageDictionary[_diceImage];
                 _heldDie.IsHeld = true;
                 //HeldDiceList.Add(_die);
             }
@@ -254,7 +269,7 @@ namespace Yahtzee
             else if (!DiceImageDictionary.ContainsKey(heldFourIMG)) _newHeldImage = heldFourIMG;
             else if (!DiceImageDictionary.ContainsKey(heldFiveIMG)) _newHeldImage = heldFiveIMG;
             DiceImageDictionary.Remove(_diceImage);
-            DiceImageDictionary.Add(_newHeldImage, _heldDie);
+           // DiceImageDictionary.Add(_newHeldImage, _heldDie);
 
             _newHeldImage.Source = _diceImage.Source;
             _newHeldImage.Visibility = Visibility.Visible;
