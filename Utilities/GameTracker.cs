@@ -14,6 +14,7 @@ namespace Yahtzee.Utilities
         public string EndedTimestamp { get; set; }
         public List<PlayerModel> Players { get; set; }
         public List<TurnModel> TurnList { get; set; }
+        public List<ScoreResult> AllPlayerScores { get; set; }
         public int Turns { get; set; }
         public string Winner { get; set; }
 
@@ -62,6 +63,7 @@ namespace Yahtzee.Utilities
 
             }
 
+            AllPlayerScores = _scoreResults;
             return _scoreResults;
         }
     }

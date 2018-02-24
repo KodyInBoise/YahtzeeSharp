@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Yahtzee.Scorecard;
 using Yahtzee.Utilities;
 using System.IO;
+using Yahtzee.ScoreHelper;
 
 namespace Yahtzee
 {
@@ -443,21 +444,13 @@ namespace Yahtzee
             heldFiveIMG.Visibility = Visibility.Collapsed;
         }
 
-        private void DisplayScores()
+        private async void DisplayScores()
         {
             try
             {
+                await Task.Run(LoadScoreResults);
                 ScoreGrid.ItemsSource = null;
-                ScoreGrid.ItemsSource = ActivePlayer.Scorecard.ScoreList;
-
-                if (ScoreGrid.Columns.Count > 2)
-                {
-                    ScoreGrid.Columns.RemoveAt(2);
-                    ScoreGrid.Columns.RemoveAt(2);
-
-                    ScoreGrid.Columns[0].Header = string.Empty;
-                    ScoreGrid.Columns[1].Header = ActivePlayer.Name;
-                }
+                ScoreGrid.ItemsSource = CurrentGame.AllPlayerScores;
             }
             catch
             {
@@ -465,9 +458,9 @@ namespace Yahtzee
             }
         }
 
-        private void scoreTAB_GotFocus(object sender, RoutedEventArgs e)
+        private async Task LoadScoreResults()
         {
-            DisplayScores();
+            CurrentGame.AllPlayerScores = CurrentGame.GetScoreResultList();
         }
 
         private void UseScoreBTN_Click(object sender, RoutedEventArgs e)
@@ -541,6 +534,9 @@ namespace Yahtzee
 
         private void startGameBTN_Click(object sender, RoutedEventArgs e)
         {
+            gameTAB.Visibility = Visibility.Visible;
+            scoreTAB.Visibility = Visibility.Visible;
+
             MainTC.SelectedIndex = 1;
             StartNewGame();
             DataHelper.SaveLocalPlayers(CurrentGame.Players);
@@ -553,6 +549,8 @@ namespace Yahtzee
             playersLB.Visibility = Visibility.Visible;
             startGameBTN.Visibility = Visibility.Visible;
 
+            gameTAB.Visibility = Visibility.Collapsed;
+            scoreTAB.Visibility = Visibility.Collapsed;
             heldOneIMG.Visibility = Visibility.Collapsed;
             heldTwoIMG.Visibility = Visibility.Collapsed;
             heldThreeIMG.Visibility = Visibility.Collapsed;
@@ -604,6 +602,7 @@ namespace Yahtzee
             switch (scoreViewingCB.Text)
             {
                 case "Current Game":
+                    DisplayScores();
                     break;
                 case "Past Scores":
                     var res = DataHelper.GetPastScores();
@@ -642,6 +641,16 @@ namespace Yahtzee
         {
             ScoreGrid.ItemsSource = null;
             ScoreGrid.ItemsSource = CurrentGame.GetScoreResultList();
+        }
+
+        private void scoreTAB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ScoreGrid.ItemsSource == null) DisplayScores();
+        }
+
+        private void gameTAB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (ScoreGrid.ItemsSource != null) ScoreGrid.ItemsSource = null;
         }
     }
 }

@@ -19,7 +19,7 @@
                     <Button x:Name="removePlayerBTN" FontFamily="Verdana" FontSize="14" Content="Remove Player" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="64,486,0,0" VerticalAlignment="Top" Width="213" Height="55" Background="#FFA52828" Click="removePlayerBTN_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="gameTAB" Header="Game" FontFamily="Verdana" FontSize="20">
+            <TabItem x:Name="gameTAB" Header="Game" FontFamily="Verdana" FontSize="20" GotFocus="gameTAB_GotFocus">
                 <Grid Background="#FFE5E5E5" Margin="0,-20,0,0">
                     <TextBlock x:Name="playerTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,35,0,0" TextWrapping="Wrap" Text="Player: Player 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,109,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
@@ -54,7 +54,6 @@
                         <ComboBoxItem Content="Current Game" IsSelected="True"/>
                         <ComboBoxItem Content="Past Scores"/>
                     </ComboBox>
-                    <Button Content="Button" HorizontalAlignment="Left" Margin="114,47,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
                 </Grid>
             </TabItem>
         </TabControl>
