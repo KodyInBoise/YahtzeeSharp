@@ -29,5 +29,11 @@ namespace Yahtzee.Utilities
 
             return null;
         }
+
+        public static void SaveLocalPlayer(PlayerModel _player)
+        {
+            var _playerDataPath = DataDirectoryPath() + "player.json";
+            File.WriteAllText(_playerDataPath, JsonConvert.SerializeObject(_player));
+        }
     }
 }

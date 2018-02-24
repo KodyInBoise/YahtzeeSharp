@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Yahtzee.Scorecard;
 using Yahtzee.Utilities;
+using System.IO;
 
 namespace Yahtzee
 {
@@ -41,6 +42,7 @@ namespace Yahtzee
         {
             InitializeComponent();
             LoadData();
+
             DiceList = DiceHelper.NewDiceSet();
             HeldDiceList = new List<DieModel>();
             OpenDiceImages = new List<Image>();
@@ -119,7 +121,7 @@ namespace Yahtzee
             rollTB.Text = $"Roll: {ActiveTurn.RollCount} of 3";
             if (ActiveTurn.RollCount == 3)
             {
-                rollBTN.Visibility = Visibility.Collapsed;
+                //rollBTN.Visibility = Visibility.Collapsed;
                 //nextTurnBTN.Visibility = Visibility.Visible;
             }
         }
@@ -275,11 +277,8 @@ namespace Yahtzee
             availableLB.ItemsSource = null;
             availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
 
-            rollingOneIMG.Visibility = Visibility.Collapsed;
-            rollingTwoIMG.Visibility = Visibility.Collapsed;
-            rollingThreeIMG.Visibility = Visibility.Collapsed;
-            rollingFourIMG.Visibility = Visibility.Collapsed;
-            rollingFiveIMG.Visibility = Visibility.Collapsed;
+            scorePointsTB.Visibility = Visibility.Collapsed;
+            scoreNameTB.Visibility = Visibility.Collapsed;
             heldOneIMG.Visibility = Visibility.Collapsed;
             heldTwoIMG.Visibility = Visibility.Collapsed;
             heldThreeIMG.Visibility = Visibility.Collapsed;
@@ -482,6 +481,17 @@ namespace Yahtzee
                 availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
                 UseScoreBTN.Visibility = Visibility.Collapsed;
                 rollBTN.Visibility = Visibility.Collapsed;
+                rollingOneIMG.Visibility = Visibility.Collapsed;
+                rollingTwoIMG.Visibility = Visibility.Collapsed;
+                rollingThreeIMG.Visibility = Visibility.Collapsed;
+                rollingFourIMG.Visibility = Visibility.Collapsed;
+                rollingFiveIMG.Visibility = Visibility.Collapsed;
+
+
+                scorePointsTB.Text = $"{_score.Value} points";
+                scoreNameTB.Text = $"{_score.Name}";
+                scorePointsTB.Visibility = Visibility.Visible;
+                scoreNameTB.Visibility = Visibility.Visible;
                 nextTurnBTN.Visibility = Visibility.Visible;
             }
             catch
@@ -522,6 +532,8 @@ namespace Yahtzee
                 addPlayerTB.Text = "Player Name";
             }
             addPlayerTB.SelectAll();
+
+            DataHelper.SaveLocalPlayer(_player);
         }
 
         private void settingsTAB_GotFocus(object sender, RoutedEventArgs e)
@@ -578,6 +590,11 @@ namespace Yahtzee
             {
                 AddPlayer();
             }
+        }
+
+        private void FinishGame()
+        {
+
         }
     }
 }

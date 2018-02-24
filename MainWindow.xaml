@@ -25,11 +25,11 @@
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,109,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="turnTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,72,0,0" TextWrapping="Wrap" Text="Turn: 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <Button x:Name="rollBTN" FontFamily="Verdana" FontSize="28"  Content="Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="330,375,0,0" VerticalAlignment="Top" Width="325" Click="rollBTN_Click" Height="80" Background="#FF2A62A5"/>
-                    <Image x:Name="rollingOneIMG" HorizontalAlignment="Left" Height="75" Margin="328,119,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceOneIMG_MouseDown"/>
-                    <Image x:Name="rollingTwoIMG" HorizontalAlignment="Left" Height="75" Margin="445,119,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceTwoIMG_MouseDown"/>
-                    <Image x:Name="rollingThreeIMG" HorizontalAlignment="Left" Height="75" Margin="566,119,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceThreeIMG_MouseDown"/>
-                    <Image x:Name="rollingFourIMG" HorizontalAlignment="Left" Height="75" Margin="398,215,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFourIMG_MouseDown"/>
-                    <Image x:Name="rollingFiveIMG" HorizontalAlignment="Left" Height="75" Margin="511,215,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFiveIMG_MouseDown"/>
+                    <Image x:Name="rollingOneIMG" HorizontalAlignment="Left" Height="75" Margin="328,119,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceOneIMG_MouseDown" Visibility="Collapsed"/>
+                    <Image x:Name="rollingTwoIMG" HorizontalAlignment="Left" Height="75" Margin="445,119,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceTwoIMG_MouseDown" Visibility="Collapsed"/>
+                    <Image x:Name="rollingThreeIMG" HorizontalAlignment="Left" Height="75" Margin="566,119,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceThreeIMG_MouseDown" Visibility="Collapsed"/>
+                    <Image x:Name="rollingFourIMG" HorizontalAlignment="Left" Height="75" Margin="398,215,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFourIMG_MouseDown" Visibility="Collapsed"/>
+                    <Image x:Name="rollingFiveIMG" HorizontalAlignment="Left" Height="75" Margin="511,215,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFiveIMG_MouseDown" Visibility="Collapsed"/>
                     <Button x:Name="nextTurnBTN" FontFamily="Verdana" FontSize="28"  Content="Next Turn" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="330,375,0,0" VerticalAlignment="Top" Width="325" Height="80" Background="#FF3DBB18" Visibility="Collapsed" Click="nextTurnBTN_Click"/>
 
                     <GroupBox x:Name="heldGB" Header="Held" HorizontalAlignment="Left" Height="251" Margin="45,212,0,0" VerticalAlignment="Top" Width="185" BorderBrush="White" BorderThickness="1" FontWeight="Bold"/>
@@ -42,6 +42,8 @@
                     <ListBox x:Name="availableLB" HorizontalAlignment="Left" Style="{StaticResource RoundListBox}" Height="311" Margin="752,114,0,0" VerticalAlignment="Top" Width="169" FontSize="16"/>
                     <Button x:Name="UseScoreBTN" Content="Use Score" Style="{StaticResource RoundButtonTemplate}" FontFamily="Verdana" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="752,430,0,0" VerticalAlignment="Top" Width="169" Height="55" Background="#FF41B400" Click="UseScoreBTN_Click"/>
                     <TextBlock x:Name="scoreTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,146,0,0" TextWrapping="Wrap" Text="Score: 0" VerticalAlignment="Top" FontWeight="Normal"/>
+                    <TextBlock x:Name="scorePointsTB" HorizontalAlignment="Center" Margin="403,176,371,0" TextWrapping="Wrap" Text="25 points" VerticalAlignment="Top" FontSize="36" Height="58" Width="178" Visibility="Collapsed"/>
+                    <TextBlock x:Name="scoreNameTB" HorizontalAlignment="Center" Margin="395,234,369,0" TextWrapping="Wrap" Text="Full House" VerticalAlignment="Top" FontSize="36" Visibility="Collapsed"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="scoreTAB" Header="Score" FontFamily="Verdana" FontSize="20" GotFocus="scoreTAB_GotFocus">

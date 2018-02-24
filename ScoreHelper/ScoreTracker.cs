@@ -36,7 +36,10 @@ namespace Yahtzee.Scorecard
 
         public List<Score> AvailableScores()
         {
-            return ScoreList.FindAll(x => x.Used == false && x.Name != "Total").ToList();
+            var _availableList = ScoreList.FindAll(x => x.Used == false && x.Name != "Total").ToList();
+            var _yahtzee = ScoreList.Find(x => x.Name == "Yahtzee");
+
+            return _availableList;
         }
 
         public void AddScore(Score _score, List<DieModel> _diceList)
@@ -165,7 +168,7 @@ namespace Yahtzee.Scorecard
 
         public void AddThreeOfAKind(List<DieModel> _diceList)
         {
-            var _score = ScoreList.Find(s => s.Name == "Three of a Kind");
+            var _score = ScoreList.Find(s => s.Name == "3 of a Kind");
             if (VerifyScore.ThreeOfAKind(_diceList))
             {
                 foreach (DieModel _die in _diceList)
@@ -182,7 +185,7 @@ namespace Yahtzee.Scorecard
 
         public void AddFourOfAKind(List<DieModel> _diceList)
         {
-            var _score = ScoreList.Find(s => s.Name == "Four of a Kind");
+            var _score = ScoreList.Find(s => s.Name == "4 of a Kind");
             if (VerifyScore.FourOfAKind(_diceList))
             {
                 foreach (DieModel _die in _diceList)
