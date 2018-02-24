@@ -12,7 +12,6 @@ namespace Yahtzee.Scorecard
     public class ScoreTracker
     {
         public List<Score> ScoreList { get; set; }
-        public List<int> AvailableNumbers { get; set; }
 
         public ScoreTracker()
         {
@@ -36,7 +35,27 @@ namespace Yahtzee.Scorecard
 
         public void AddScore(Score _score, List<DieModel> _diceList)
         {
-
+            switch (_score.Name)
+            {
+                case "Ones":
+                    AddOnes(_diceList);
+                    break;
+                case "Twos":
+                    AddTwos(_diceList);
+                    break;
+                case "Threes":
+                    AddThrees(_diceList);
+                    break;
+                case "Fours":
+                    AddFours(_diceList);
+                    break;
+                case "Fives":
+                    AddFives(_diceList);
+                    break;
+                case "Sixes":
+                    AddSixes(_diceList);
+                    break;
+            }
         }
 
         public void AddOnes(List<DieModel> _diceList)
