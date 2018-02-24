@@ -20,7 +20,7 @@
             </TabItem>
             <TabItem x:Name="gameTAB" Header="Game" FontFamily="Verdana" FontSize="20">
                 <Grid Background="#FFE5E5E5" Margin="0,-20,0,0">
-                    <Button x:Name="startBTN" Content="New Game" Style="{StaticResource RoundButtonTemplate}" FontFamily="Verdana" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="769,510,0,0" VerticalAlignment="Top" Width="173" Height="61" Click="startBTN_Click" Background="#FFC91515"/>
+                    <Button x:Name="startBTN" Content="New Game" Style="{StaticResource RoundButtonTemplate}" FontFamily="Verdana" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="769,510,0,0" VerticalAlignment="Top" Width="173" Height="61" Click="startBTN_Click" Background="#FFC91515" Visibility="Collapsed"/>
                     <TextBlock x:Name="playerTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,35,0,0" TextWrapping="Wrap" Text="Player: Player 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,109,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="turnTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,72,0,0" TextWrapping="Wrap" Text="Turn: 1" VerticalAlignment="Top" FontWeight="Normal"/>
