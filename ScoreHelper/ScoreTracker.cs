@@ -36,7 +36,7 @@ namespace Yahtzee.Scorecard
 
         public List<Score> AvailableScores()
         {
-            return ScoreList.FindAll(x => x.Used == false).ToList();
+            return ScoreList.FindAll(x => x.Used == false && x.Name != "Total").ToList();
         }
 
         public void AddScore(Score _score, List<DieModel> _diceList)

@@ -65,6 +65,7 @@ namespace Yahtzee
 
             rollBTN.Visibility = Visibility.Collapsed;
             CurrentGame = CreateNewGame();
+            ShowNewGame();
         }
 
         private Dictionary<Image, int> CreateRollingDictionary()
@@ -119,7 +120,7 @@ namespace Yahtzee
             if (ActiveTurn.RollCount == 3)
             {
                 rollBTN.Visibility = Visibility.Collapsed;
-                nextTurnBTN.Visibility = Visibility.Visible;
+                //nextTurnBTN.Visibility = Visibility.Visible;
             }
         }
 
@@ -265,15 +266,23 @@ namespace Yahtzee
             DiceList = DiceHelper.NewDiceSet();
             RollingImageDictionary = CreateRollingDictionary();
             HeldImageDictionary = CreateHeldDictionary();
-            //ResetHeldDice();
 
             playerTB.Text = $"Player: {ActivePlayer.Name}";
             turnTB.Text = $"Turn: {CurrentGame.TurnList.Count + 1}";
             rollTB.Text = $"Roll: 1 of 3";
             scoreTB.Text = $"Score: {ActivePlayer.Scorecard.TotalScore()}";
 
+            availableLB.ItemsSource = null;
+            availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
+
+            heldOneIMG.Visibility = Visibility.Collapsed;
+            heldTwoIMG.Visibility = Visibility.Collapsed;
+            heldThreeIMG.Visibility = Visibility.Collapsed;
+            heldFourIMG.Visibility = Visibility.Collapsed;
+            heldFiveIMG.Visibility = Visibility.Collapsed;
             nextTurnBTN.Visibility = Visibility.Collapsed;
             rollBTN.Visibility = Visibility.Visible;
+            UseScoreBTN.Visibility = Visibility.Visible;
         }
 
         private void nextTurnBTN_Click(object sender, RoutedEventArgs e)
@@ -375,15 +384,6 @@ namespace Yahtzee
 
             RollingImageDictionary[rollingFiveIMG] = 0;
             rollingFiveIMG.Visibility = Visibility.Collapsed;
-        }
-
-        private void ResetHeldDice()
-        {
-            foreach (Image _image in HeldDiceImages)
-            {
-                _image.Visibility = Visibility.Collapsed;
-            }
-            HeldDiceList = new List<DieModel>();
         }
 
         private void AddToRoll(DieModel _rollingDie)
@@ -496,6 +496,7 @@ namespace Yahtzee
                 AddSelectedScore(_score);
 
                 availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
+                UseScoreBTN.Visibility = Visibility.Collapsed;
                 rollBTN.Visibility = Visibility.Collapsed;
                 nextTurnBTN.Visibility = Visibility.Visible;
             }
@@ -562,6 +563,12 @@ namespace Yahtzee
             addPlayerTB.Visibility = Visibility.Visible;
             playersLB.Visibility = Visibility.Visible;
             startGameBTN.Visibility = Visibility.Visible;
+
+            heldOneIMG.Visibility = Visibility.Collapsed;
+            heldTwoIMG.Visibility = Visibility.Collapsed;
+            heldThreeIMG.Visibility = Visibility.Collapsed;
+            heldFourIMG.Visibility = Visibility.Collapsed;
+            heldFiveIMG.Visibility = Visibility.Collapsed;
         }
 
         private void ShowActiveGame()
