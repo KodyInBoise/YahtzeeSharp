@@ -12,9 +12,9 @@
             <TabItem x:Name="newGameTAB" Header="New Game" FontFamily="Verdana" FontSize="20" GotFocus="settingsTAB_GotFocus">
                 <Grid Background="#FFE5E5E5" Margin="0,-20,0,0">
                     <ListBox x:Name="playersLB" HorizontalAlignment="Left" Style="{StaticResource RoundListBox}" Height="349" Margin="64,127,0,0" VerticalAlignment="Top" Width="213"/>
-                    <TextBox x:Name="addPlayerTB" HorizontalAlignment="Left" Style="{StaticResource RoundTextBox}" Height="60" Margin="331,214,0,0" TextWrapping="Wrap" Text="Player Name" VerticalAlignment="Top" Width="344" VerticalContentAlignment="Center" FontSize="28"/>
+                    <TextBox x:Name="addPlayerTB" HorizontalAlignment="Left" Style="{StaticResource RoundTextBox}" Height="60" Margin="331,214,0,0" TextWrapping="Wrap" Text="Player Name" VerticalAlignment="Top" Width="344" VerticalContentAlignment="Center" FontSize="28" KeyDown="addPlayerTB_KeyDown"/>
                     <Button x:Name="addPlayerBTN" FontFamily="Verdana" FontSize="28"  Content="Add Player" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="331,282,0,0" VerticalAlignment="Top" Width="344" Height="55" Background="#FF0073B4" Click="addPlayerBTN_Click"/>
-                    <TextBlock x:Name="newGameLBL" HorizontalAlignment="Left" Height="82" Margin="331,127,0,0" TextWrapping="Wrap" Text="New Game" VerticalAlignment="Top" Width="344" FontSize="46" FontWeight="SemiBold" FontFamily="Tekton Pro" TextAlignment="Center"/>
+                    <TextBlock x:Name="newGameLBL" HorizontalAlignment="Left" Height="82" Margin="331,127,0,0" TextWrapping="Wrap" Text="New Game" VerticalAlignment="Top" Width="344" FontSize="46" FontWeight="Bold" FontFamily="Tekton Pro" TextAlignment="Center"/>
                     <Button x:Name="startGameBTN" FontFamily="Verdana" FontSize="28"  Content="Start!" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="672,486,0,0" VerticalAlignment="Top" Width="250" Height="75" Background="#FF41B400" Click="startGameBTN_Click"/>
                 </Grid>
             </TabItem>

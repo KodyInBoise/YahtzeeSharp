@@ -275,6 +275,11 @@ namespace Yahtzee
             availableLB.ItemsSource = null;
             availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
 
+            rollingOneIMG.Visibility = Visibility.Collapsed;
+            rollingTwoIMG.Visibility = Visibility.Collapsed;
+            rollingThreeIMG.Visibility = Visibility.Collapsed;
+            rollingFourIMG.Visibility = Visibility.Collapsed;
+            rollingFiveIMG.Visibility = Visibility.Collapsed;
             heldOneIMG.Visibility = Visibility.Collapsed;
             heldTwoIMG.Visibility = Visibility.Collapsed;
             heldThreeIMG.Visibility = Visibility.Collapsed;
@@ -318,27 +323,6 @@ namespace Yahtzee
 
             HeldImageDictionary[_heldImage] = _heldDie.Id;
             _heldImage.Visibility = Visibility.Visible;
-            /*
-            Image _newHeldImage = null;
-            DieModel _heldDie = null;
-            if (DiceImageDictionary.ContainsKey(_diceImage))
-            {
-                //_heldDie = DiceImageDictionary[_diceImage];
-                _heldDie.IsHeld = true;
-                //HeldDiceList.Add(_die);
-            }
-
-            if (!DiceImageDictionary.ContainsKey(heldOneIMG)) _newHeldImage = heldOneIMG;
-            else if (!DiceImageDictionary.ContainsKey(heldTwoIMG)) _newHeldImage = heldTwoIMG;
-            else if (!DiceImageDictionary.ContainsKey(heldThreeIMG)) _newHeldImage = heldThreeIMG;
-            else if (!DiceImageDictionary.ContainsKey(heldFourIMG)) _newHeldImage = heldFourIMG;
-            else if (!DiceImageDictionary.ContainsKey(heldFiveIMG)) _newHeldImage = heldFiveIMG;
-            DiceImageDictionary.Remove(_diceImage);
-           // DiceImageDictionary.Add(_newHeldImage, _heldDie);
-
-            _newHeldImage.Source = _diceImage.Source;
-            _newHeldImage.Visibility = Visibility.Visible;
-            */
         }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
@@ -502,7 +486,7 @@ namespace Yahtzee
             }
             catch
             {
-                throw;
+
             }
         }
 
@@ -535,8 +519,9 @@ namespace Yahtzee
                 };
                 CurrentGame.Players.Add(_player);
                 playersLB.Items.Refresh();
+                addPlayerTB.Text = "Player Name";
             }
-
+            addPlayerTB.SelectAll();
         }
 
         private void settingsTAB_GotFocus(object sender, RoutedEventArgs e)
@@ -585,6 +570,14 @@ namespace Yahtzee
             turnTB.Visibility = Visibility.Collapsed;
             rollTB.Visibility = Visibility.Collapsed;
             scoreTB.Visibility = Visibility.Collapsed;
+        }
+
+        private void addPlayerTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                AddPlayer();
+            }
         }
     }
 }

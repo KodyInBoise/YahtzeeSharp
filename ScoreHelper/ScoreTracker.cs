@@ -61,10 +61,10 @@ namespace Yahtzee.Scorecard
                 case "Sixes":
                     AddSixes(_diceList);
                     break;
-                case "3 of a kind":
+                case "3 of a Kind":
                     AddThreeOfAKind(_diceList);
                     break;
-                case "4 of a kind":
+                case "4 of a Kind":
                     AddFourOfAKind(_diceList);
                     break;
                 case "Full House":
@@ -88,37 +88,25 @@ namespace Yahtzee.Scorecard
         public void AddOnes(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Aces");
-            var x = 0;
             foreach (DieModel _die in _diceList)
             {
                 if (_die.Value == 1)
                 {
                     _score.Value += 1;
-                    x++;
                 }
             }
-            if (x < 3)
-            {
-                _score.Value = 0;
-            }           
             _score.Used = true;
         }
 
         public void AddTwos(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Twos");
-            var x = 0;
             foreach (DieModel _die in _diceList)
             {
                 if (_die.Value == 2)
                 {
                     _score.Value += 2;
-                    x++;
                 }
-            }
-            if (x < 3)
-            {
-                _score.Value = 0;
             }
             _score.Used = true;
         }
@@ -126,18 +114,12 @@ namespace Yahtzee.Scorecard
         public void AddThrees(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Threes");
-            var x = 0;
             foreach (DieModel _die in _diceList)
             {
                 if (_die.Value == 3)
                 {
                     _score.Value += 3;
-                    x++;
                 }
-            }
-            if (x < 3)
-            {
-                _score.Value = 0;
             }
             _score.Used = true;
         }
@@ -145,18 +127,12 @@ namespace Yahtzee.Scorecard
         public void AddFours(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Fours");
-            var x = 0;
             foreach (DieModel _die in _diceList)
             {
                 if (_die.Value == 4)
                 {
                     _score.Value += 4;
-                    x++;
                 }
-            }
-            if (x < 3)
-            {
-                _score.Value = 0;
             }
             _score.Used = true;
         }
@@ -164,18 +140,12 @@ namespace Yahtzee.Scorecard
         public void AddFives(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Fives");
-            var x = 0;
             foreach (DieModel _die in _diceList)
             {
                 if (_die.Value == 5)
                 {
                     _score.Value += 5;
-                    x++;
                 }
-            }
-            if (x < 3)
-            {
-                _score.Value = 0;
             }
             _score.Used = true;
         }
@@ -183,18 +153,12 @@ namespace Yahtzee.Scorecard
         public void AddSixes(List<DieModel> _diceList)
         {
             var _score = ScoreList.Find(s => s.Name == "Sixes");
-            var x = 0;
             foreach (DieModel _die in _diceList)
             {
                 if (_die.Value == 6)
                 {
                     _score.Value += 6;
-                    x++;
                 }
-            }
-            if (x < 3)
-            {
-                _score.Value = 0;
             }
             _score.Used = true;
         }
