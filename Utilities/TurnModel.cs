@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yahtzee.Utilities
 {
-    class TurnModel
+    public class TurnModel
     {
         public PlayerModel Player { get; set; }
         public int RollCount { get; set; }

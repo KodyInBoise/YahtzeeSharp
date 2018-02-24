@@ -64,7 +64,7 @@ namespace Yahtzee
             };
 
             rollBTN.Visibility = Visibility.Collapsed;
-            StartNewGame();
+            CurrentGame = CreateNewGame();
         }
 
         private Dictionary<Image, int> CreateRollingDictionary()
@@ -118,8 +118,8 @@ namespace Yahtzee
             rollTB.Text = $"Roll: {ActiveTurn.RollCount} of 3";
             if (ActiveTurn.RollCount == 3)
             {
-                //rollBTN.Visibility = Visibility.Collapsed;
-                //nextTurnBTN.Visibility = Visibility.Visible;
+                rollBTN.Visibility = Visibility.Collapsed;
+                nextTurnBTN.Visibility = Visibility.Visible;
             }
         }
 
@@ -143,33 +143,21 @@ namespace Yahtzee
                 {
                     case 1:
                         _imageList[x].Source = ImageHelper.DiceOne();
-                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        //else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 2:
                         _imageList[x].Source = ImageHelper.DiceTwo();
-                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        //else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 3:
                         _imageList[x].Source = ImageHelper.DiceThree();
-                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                       // else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 4:
                         _imageList[x].Source = ImageHelper.DiceFour();
-                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                       // else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 5:
                         _imageList[x].Source = ImageHelper.DiceFive();
-                       // if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                       // else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                     case 6:
                         _imageList[x].Source = ImageHelper.DiceSix();
-                        //if (DiceImageDictionary.ContainsKey(_imageList[x])) DiceImageDictionary[_imageList[x]] = _die;
-                        //else DiceImageDictionary.Add(_imageList[x], _die);
                         break;
                 }
                 x++;
@@ -198,8 +186,28 @@ namespace Yahtzee
             StartNewGame();
         }
 
+        private GameTracker CreateNewGame()
+        {
+            CurrentGame = new GameTracker();
+            return CurrentGame;
+        }
+
+        private TurnModel NewTurn()
+        {
+            var _newTurn = new TurnModel
+            {
+                StartTime = DateTime.Now.TimeOfDay.ToString(),
+                Player = ActivePlayer,
+            };
+
+            return _newTurn;
+        }
+
         private void StartNewGame()
         {
+            ActivePlayer = CurrentGame.Players[0];
+            StartNextTurn();
+            /*
             CurrentGame = new GameTracker();
             if (CurrentGame.Players.Count == 0)
             {
@@ -210,7 +218,7 @@ namespace Yahtzee
                 };
                 CurrentGame.Players.Add(ActivePlayer);
             }
-            TurnList = new List<TurnModel>();
+
             ActiveTurn = new TurnModel
             {
                 Player = ActivePlayer,
@@ -228,24 +236,42 @@ namespace Yahtzee
             rollBTN.Visibility = Visibility.Visible;
 
             startBTN.Visibility = Visibility.Collapsed;
+            */
         }
 
         private void StartNextTurn()
         {
-            ActiveTurn.EndTime = DateTime.Today.TimeOfDay.ToString();
-            TurnList.Add(ActiveTurn);
-
-            ActiveTurn = new TurnModel
+            if (ActiveTurn == null)
             {
-                StartTime = DateTime.Today.TimeOfDay.ToString(),
-                Player = ActivePlayer,
-            };
+                ActiveTurn = NewTurn();
+            }
+            else
+            {
+                ActiveTurn.EndTime = DateTime.Today.TimeOfDay.ToString();
+                CurrentGame.TurnList.Add(ActiveTurn);
+                var _activeIndex = CurrentGame.Players.IndexOf(ActivePlayer);
+                if (_activeIndex == CurrentGame.Players.Count - 1)
+                {
+                    ActivePlayer = CurrentGame.Players[0];
+                }
+                else
+                {
+                    ActivePlayer = CurrentGame.Players[_activeIndex + 1];
+                }
+
+                ActiveTurn = NewTurn();
+            }
+
             DiceList = DiceHelper.NewDiceSet();
             RollingImageDictionary = CreateRollingDictionary();
             HeldImageDictionary = CreateHeldDictionary();
-            ResetHeldDice();
+            //ResetHeldDice();
 
-            turnTB.Text = $"Turn: {TurnList.Count + 1}";
+            playerTB.Text = $"Player: {ActivePlayer.Name}";
+            turnTB.Text = $"Turn: {CurrentGame.TurnList.Count + 1}";
+            rollTB.Text = $"Roll: 1 of 3";
+            scoreTB.Text = $"Score: {ActivePlayer.Scorecard.TotalScore()}";
+
             nextTurnBTN.Visibility = Visibility.Collapsed;
             rollBTN.Visibility = Visibility.Visible;
         }
@@ -255,16 +281,6 @@ namespace Yahtzee
             StartNextTurn();
         }
 
-        /*
-        private void HoldDie(DieModel _die, ImageSource _imageSource)
-        {
-            var _heldCount = HeldDiceList.Count;
-            var _newHeldIMG = HeldDiceImages[_heldCount];
-            _newHeldIMG.Source = _imageSource;
-            _newHeldIMG.Visibility = Visibility.Visible;
-            HeldDiceList.Add(_die);
-        }
-        */
         private void HoldDie(DieModel _heldDie)
         {
             _heldDie.IsHeld = true;

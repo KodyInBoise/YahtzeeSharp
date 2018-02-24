@@ -11,6 +11,7 @@ namespace Yahtzee.Utilities
         public string StartedTimestamp { get; set; }
         public string EndedTimestamp { get; set; }
         public List<PlayerModel> Players { get; set; }
+        public List<TurnModel> TurnList { get; set; }
         public int Turns { get; set; }
         public string Winner { get; set; }
 
@@ -21,6 +22,7 @@ namespace Yahtzee.Utilities
         {
             StartedTimestamp = DateTime.Now.ToString();
             Players = new List<PlayerModel>();
+            TurnList = new List<TurnModel>();
         }
 
         public void GetResults()
