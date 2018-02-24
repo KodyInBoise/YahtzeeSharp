@@ -16,11 +16,11 @@
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,109,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="turnTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,72,0,0" TextWrapping="Wrap" Text="Turn: 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <Button x:Name="rollBTN" FontFamily="Verdana" FontSize="28"  Content="Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="490,396,0,0" VerticalAlignment="Top" Width="325" Click="rollBTN_Click" Height="80" Background="#FF2A62A5"/>
-                    <Image x:Name="diceOneIMG" HorizontalAlignment="Left" Height="75" Margin="489,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceOneIMG_MouseDown"/>
-                    <Image x:Name="diceTwoIMG" HorizontalAlignment="Left" Height="75" Margin="606,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceTwoIMG_MouseDown"/>
-                    <Image x:Name="diceThreeIMG" HorizontalAlignment="Left" Height="75" Margin="727,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceThreeIMG_MouseDown"/>
-                    <Image x:Name="diceFourIMG" HorizontalAlignment="Left" Height="75" Margin="559,266,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFourIMG_MouseDown"/>
-                    <Image x:Name="diceFiveIMG" HorizontalAlignment="Left" Height="75" Margin="672,266,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFiveIMG_MouseDown"/>
+                    <Image x:Name="rollingOneIMG" HorizontalAlignment="Left" Height="75" Margin="489,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceOneIMG_MouseDown"/>
+                    <Image x:Name="rollingTwoIMG" HorizontalAlignment="Left" Height="75" Margin="606,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceTwoIMG_MouseDown"/>
+                    <Image x:Name="rollingThreeIMG" HorizontalAlignment="Left" Height="75" Margin="727,170,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceThreeIMG_MouseDown"/>
+                    <Image x:Name="rollingFourIMG" HorizontalAlignment="Left" Height="75" Margin="559,266,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFourIMG_MouseDown"/>
+                    <Image x:Name="rollingFiveIMG" HorizontalAlignment="Left" Height="75" Margin="672,266,0,0" VerticalAlignment="Top" Width="75" Source="Images/dice-six.png" MouseDown="diceFiveIMG_MouseDown"/>
                     <Button x:Name="nextTurnBTN" FontFamily="Verdana" FontSize="28"  Content="Next Turn" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="490,396,0,0" VerticalAlignment="Top" Width="325" Height="80" Background="#FF3DBB18" Visibility="Collapsed" Click="nextTurnBTN_Click"/>
 
                     <GroupBox x:Name="heldGB" Header="Held" HorizontalAlignment="Left" Height="251" Margin="24,249,0,0" VerticalAlignment="Top" Width="185" BorderBrush="White" BorderThickness="1" FontWeight="Bold"/>

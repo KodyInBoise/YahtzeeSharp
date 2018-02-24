@@ -34,7 +34,8 @@ namespace Yahtzee
         private List<TurnModel> TurnList;
 
         
-        Dictionary<Image, int> DiceImageDictionary;
+        Dictionary<Image, int> RollingImageDictionary;
+        Dictionary<Image, int> HeldImageDictionary;
 
         public MainWindow()
         {
@@ -47,11 +48,11 @@ namespace Yahtzee
 
             DiceImages = new List<Image>
             {
-                diceOneIMG,
-                diceTwoIMG,
-                diceThreeIMG,
-                diceFourIMG,
-                diceFiveIMG,
+                rollingOneIMG,
+                rollingTwoIMG,
+                rollingThreeIMG,
+                rollingFourIMG,
+                rollingFiveIMG,
             };
             HeldDiceImages = new List<Image>
             {
@@ -65,15 +66,23 @@ namespace Yahtzee
             rollBTN.Visibility = Visibility.Collapsed;
         }
 
-        private Dictionary<Image, int> CreateImageDictionary()
+        private Dictionary<Image, int> CreateRollingDictionary()
         {
             //Create dictionary with Image and dice id if showing one, 0 if open
             var _dictionary = new Dictionary<Image, int>();
-            _dictionary.Add(diceOneIMG, 0);
-            _dictionary.Add(diceTwoIMG, 0);
-            _dictionary.Add(diceThreeIMG, 0);
-            _dictionary.Add(diceFourIMG, 0);
-            _dictionary.Add(diceFiveIMG, 0);
+            _dictionary.Add(rollingOneIMG, 0);
+            _dictionary.Add(rollingTwoIMG, 0);
+            _dictionary.Add(rollingThreeIMG, 0);
+            _dictionary.Add(rollingFourIMG, 0);
+            _dictionary.Add(rollingFiveIMG, 0);
+
+            return _dictionary;
+        }
+
+        private Dictionary<Image, int> CreateHeldDictionary()
+        {
+            //Create dictionary with Image and dice id if showing one, 0 if open
+            var _dictionary = new Dictionary<Image, int>();
             _dictionary.Add(heldOneIMG, 0);
             _dictionary.Add(heldTwoIMG, 0);
             _dictionary.Add(heldThreeIMG, 0);
@@ -82,7 +91,7 @@ namespace Yahtzee
 
             return _dictionary;
         }
-        
+
         private void LoadData()
         {
             var _data = DataHelper.DataDirectoryPath();
@@ -124,16 +133,17 @@ namespace Yahtzee
         {
             var _imageList = new List<Image>
             {
-                diceOneIMG, 
-                diceTwoIMG,
-                diceThreeIMG, 
-                diceFourIMG,
-                diceFiveIMG
+                rollingOneIMG, 
+                rollingTwoIMG,
+                rollingThreeIMG, 
+                rollingFourIMG,
+                rollingFiveIMG
             };
 
             var x = 0;
             foreach (DieModel _die in _diceList)
             {
+                RollingImageDictionary[_imageList[x]] = _die.Id;
                 _imageList[x].Visibility = Visibility.Visible;
                 switch(_die.Value)
                 {
@@ -176,6 +186,7 @@ namespace Yahtzee
                 var i = 4;
                 while (i > _diceList.Count - 1)
                 {
+                    RollingImageDictionary[_imageList[i]] = 0;
                     _imageList[i].Visibility = Visibility.Collapsed;
                     i--;
                 }
@@ -195,7 +206,6 @@ namespace Yahtzee
 
         private void StartNewGame()
         {
-            DiceImageDictionary = CreateImageDictionary();
             CurrentGame = new GameTracker();
             ActivePlayer = new PlayerModel
             {
@@ -208,6 +218,8 @@ namespace Yahtzee
                 Player = ActivePlayer,
                 StartTime = DateTime.Today.TimeOfDay.ToString(),
             };
+            RollingImageDictionary = CreateRollingDictionary();
+            HeldImageDictionary = CreateHeldDictionary();
             ResetHeldDice();           
 
             playerTB.Visibility = Visibility.Visible;
@@ -229,7 +241,8 @@ namespace Yahtzee
                 Player = ActivePlayer,
             };
             DiceList = DiceHelper.NewDiceSet();
-            DiceImageDictionary = CreateImageDictionary();
+            RollingImageDictionary = CreateRollingDictionary();
+            HeldImageDictionary = CreateHeldDictionary();
             ResetHeldDice();
 
             turnTB.Text = $"Turn: {TurnList.Count + 1}";
@@ -252,8 +265,35 @@ namespace Yahtzee
             HeldDiceList.Add(_die);
         }
         */
-        private void HoldDie(Image _diceImage)
+        private void HoldDie(DieModel _heldDie)
         {
+            _heldDie.IsHeld = true;
+            var _heldImage = HeldImageDictionary.First(x => x.Value == 0).Key;
+            switch(_heldDie.Value)
+            {
+                case 1:
+                    _heldImage.Source = ImageHelper.DiceOne();
+                    break;
+                case 2:
+                    _heldImage.Source = ImageHelper.DiceTwo();
+                    break;
+                case 3:
+                    _heldImage.Source = ImageHelper.DiceThree();
+                    break;
+                case 4:
+                    _heldImage.Source = ImageHelper.DiceFour();
+                    break;
+                case 5:
+                    _heldImage.Source = ImageHelper.DiceFive();
+                    break;
+                case 6:
+                    _heldImage.Source = ImageHelper.DiceSix();
+                    break;
+            }
+
+            HeldImageDictionary[_heldImage] = _heldDie.Id;
+            _heldImage.Visibility = Visibility.Visible;
+            /*
             Image _newHeldImage = null;
             DieModel _heldDie = null;
             if (DiceImageDictionary.ContainsKey(_diceImage))
@@ -273,41 +313,52 @@ namespace Yahtzee
 
             _newHeldImage.Source = _diceImage.Source;
             _newHeldImage.Visibility = Visibility.Visible;
+            */
         }
 
         private void diceOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(diceOneIMG);
-            OpenDiceImages.Add(diceOneIMG);
-            diceOneIMG.Visibility = Visibility.Collapsed;
+            DieModel _heldDie = (DieModel)DiceList.Find(x => x.Id == RollingImageDictionary[rollingOneIMG]);
+            HoldDie(_heldDie);
+
+            RollingImageDictionary[rollingOneIMG] = 0;
+            rollingOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(diceTwoIMG);
-            OpenDiceImages.Add(diceTwoIMG);
-            diceTwoIMG.Visibility = Visibility.Collapsed;
+            DieModel _heldDie = (DieModel)DiceList.Find(x => x.Id == RollingImageDictionary[rollingTwoIMG]);
+            HoldDie(_heldDie);
+
+            RollingImageDictionary[rollingTwoIMG] = 0;
+            rollingTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(diceThreeIMG);
-            OpenDiceImages.Add(diceThreeIMG);
-            diceThreeIMG.Visibility = Visibility.Collapsed;
+            DieModel _heldDie = (DieModel)DiceList.Find(x => x.Id == RollingImageDictionary[rollingThreeIMG]);
+            HoldDie(_heldDie);
+
+            RollingImageDictionary[rollingThreeIMG] = 0;
+            rollingThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(diceFourIMG);
-            OpenDiceImages.Add(diceFourIMG);
-            diceFourIMG.Visibility = Visibility.Collapsed;
+            DieModel _heldDie = (DieModel)DiceList.Find(x => x.Id == RollingImageDictionary[rollingFourIMG]);
+            HoldDie(_heldDie);
+
+            RollingImageDictionary[rollingFourIMG] = 0;
+            rollingFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void diceFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            HoldDie(diceFiveIMG);
-            OpenDiceImages.Add(diceFiveIMG);
-            diceFiveIMG.Visibility = Visibility.Collapsed;
+            DieModel _heldDie = (DieModel)DiceList.Find(x => x.Id == RollingImageDictionary[rollingFiveIMG]);
+            HoldDie(_heldDie);
+
+            RollingImageDictionary[rollingFiveIMG] = 0;
+            rollingFiveIMG.Visibility = Visibility.Collapsed;
         }
 
         private void ResetHeldDice()
