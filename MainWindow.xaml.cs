@@ -32,7 +32,7 @@ namespace Yahtzee
         private List<Image> OpenHeldImages;
         private TurnModel ActiveTurn;
         private List<TurnModel> TurnList;
-
+        public List<Score> PlayerScore;
         
         Dictionary<Image, int> RollingImageDictionary;
         Dictionary<Image, int> HeldImageDictionary;
@@ -205,6 +205,7 @@ namespace Yahtzee
                 Name = "Kody",
                 Scorecard = new ScoreTracker()
             };
+            CurrentGame.Players.Add(ActivePlayer);
             TurnList = new List<TurnModel>();
             ActiveTurn = new TurnModel
             {
@@ -215,9 +216,7 @@ namespace Yahtzee
             HeldImageDictionary = CreateHeldDictionary();
             ResetHeldDice();
 
-            var _allScores = new List<string>();
-            foreach (Score _score in ActivePlayer.Scorecard.ScoreList) _allScores.Add(_score.Name);
-            availableLB.ItemsSource = _allScores;
+            availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
 
             playerTB.Visibility = Visibility.Visible;
             rollTB.Visibility = Visibility.Visible;
@@ -442,13 +441,18 @@ namespace Yahtzee
         }
 
         private void DisplayScores()
-        {            
-            ScoreTracker _scores = new ScoreTracker();
-            ScoreGrid.ItemsSource = _scores.ScoreList;
-            ScoreGrid.Columns[0].Header = string.Empty;
-            ScoreGrid.Columns[1].Header = ActivePlayer.Name;
-            ScoreGrid.Columns.RemoveAt(2);
-            ScoreGrid.Columns.RemoveAt(2);
+        {
+            ScoreGrid.ItemsSource = null;
+            ScoreGrid.ItemsSource = ActivePlayer.Scorecard.ScoreList;
+
+            if (ScoreGrid.Columns.Count > 2)
+            {
+                ScoreGrid.Columns.RemoveAt(2);
+                ScoreGrid.Columns.RemoveAt(2);
+
+                ScoreGrid.Columns[0].Header = string.Empty;
+                ScoreGrid.Columns[1].Header = ActivePlayer.Name;
+            }
         }
 
         private void scoreTAB_GotFocus(object sender, RoutedEventArgs e)
@@ -459,15 +463,25 @@ namespace Yahtzee
         private void UseScoreBTN_Click(object sender, RoutedEventArgs e)
         {
             var _scoreName = availableLB.SelectedValue.ToString();
-            var _score = ActivePlayer.Scorecard.ScoreList.Find(x => x.Name == "");
+            var _score = ActivePlayer.Scorecard.ScoreList.Find(x => x.Name == _scoreName);
+            AddSelectedScore(_score);
+
+            availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
+            rollBTN.Visibility = Visibility.Collapsed;
+            nextTurnBTN.Visibility = Visibility.Visible;
+        }
+
+        private void AddSelectedScore(Score _score)
+        {
             if (!_score.Used)
             {
-                
+                ActivePlayer.Scorecard.AddScore(_score, DiceList);
             }
             else
             {
-                availableLB.Items.Remove(availableLB.SelectedItem);
+                //availableLB.Items.Remove(availableLB.SelectedItem);
             }
         }
+
     }
 }

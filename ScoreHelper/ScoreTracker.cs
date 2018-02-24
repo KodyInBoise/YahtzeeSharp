@@ -23,8 +23,8 @@ namespace Yahtzee.Scorecard
                 new Score("Fours", true),
                 new Score("Fives", true),
                 new Score("Sixes", true),
-                new Score("3 of a kind"),
-                new Score("4 of a kind"),
+                new Score("3 of a Kind"),
+                new Score("4 of a Kind"),
                 new Score("Full House"),
                 new Score("Small Straight"),
                 new Score("Large Straight"),
@@ -33,11 +33,16 @@ namespace Yahtzee.Scorecard
             };
         }
 
+        public List<Score> AvailableScores()
+        {
+            return ScoreList.FindAll(x => x.Used == false).ToList();
+        }
+
         public void AddScore(Score _score, List<DieModel> _diceList)
         {
             switch (_score.Name)
             {
-                case "Ones":
+                case "Aces":
                     AddOnes(_diceList);
                     break;
                 case "Twos":
@@ -54,6 +59,27 @@ namespace Yahtzee.Scorecard
                     break;
                 case "Sixes":
                     AddSixes(_diceList);
+                    break;
+                case "3 of a kind":
+                    AddThreeOfAKind(_diceList);
+                    break;
+                case "4 of a kind":
+                    AddFourOfAKind(_diceList);
+                    break;
+                case "Full House":
+                    AddFullHouse(_diceList);
+                    break;
+                case "Small Straight":
+                    AddSmallStraight(_diceList);
+                    break;
+                case "Large Straight":
+                    AddLargeStraight(_diceList);
+                    break;
+                case "Yahtzee":
+                    AddYahtzee(_diceList);
+                    break;
+                case "Chance":
+                    AddChance(_diceList);
                     break;
             }
         }
@@ -86,6 +112,7 @@ namespace Yahtzee.Scorecard
                 if (_die.Value == 2)
                 {
                     _score.Value += 2;
+                    x++;
                 }
             }
             if (x < 3)
@@ -104,6 +131,7 @@ namespace Yahtzee.Scorecard
                 if (_die.Value == 3)
                 {
                     _score.Value += 3;
+                    x++;
                 }
             }
             if (x < 3)
@@ -122,6 +150,7 @@ namespace Yahtzee.Scorecard
                 if (_die.Value == 4)
                 {
                     _score.Value += 4;
+                    x++;
                 }
             }
             if (x < 3)
@@ -140,6 +169,7 @@ namespace Yahtzee.Scorecard
                 if (_die.Value == 5)
                 {
                     _score.Value += 5;
+                    x++;
                 }
             }
             if (x < 3)
@@ -158,6 +188,7 @@ namespace Yahtzee.Scorecard
                 if (_die.Value == 6)
                 {
                     _score.Value += 6;
+                    x++;
                 }
             }
             if (x < 3)

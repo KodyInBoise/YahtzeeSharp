@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ScoreHelper\Score.cs" />
+    <Compile Include="ScoreHelper\ScoreResult.cs" />
     <Compile Include="ScoreHelper\ScoreTracker.cs" />
     <Compile Include="ScoreHelper\VerifyScore.cs" />
     <Compile Include="ScoreWindow.xaml.cs">

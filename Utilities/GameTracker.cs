@@ -20,6 +20,18 @@ namespace Yahtzee.Utilities
         public GameTracker()
         {
             StartedTimestamp = DateTime.Now.ToString();
+            Players = new List<PlayerModel>();
+        }
+
+        public void GetResults()
+        {
+
+        }
+
+        private class PlayerResults
+        {
+            string ScoreName { get; set; }
+
         }
     }
 }

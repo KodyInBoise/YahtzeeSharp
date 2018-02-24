@@ -18,7 +18,13 @@ namespace Yahtzee.Scorecard
         {
             Name = _name;
             Value = 0;
+            CountsBonus = _bonus;
             Used = false;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

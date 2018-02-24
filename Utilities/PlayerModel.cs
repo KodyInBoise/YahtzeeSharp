@@ -10,6 +10,7 @@ namespace Yahtzee.Utilities
     public class PlayerModel
     {
         public string Name { get; set; }
+        public List<int> Scores { get; set; }
         public ScoreTracker Scorecard { get; set; }
     }
 }
