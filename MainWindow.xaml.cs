@@ -108,14 +108,7 @@ namespace Yahtzee
             OpenDiceImages = new List<Image>();
             OpenHeldImages = new List<Image>();
 
-            var _rollingDiceList = new List<DieModel>();
-            foreach (DieModel _die in DiceList)
-            {
-                if (!HeldDiceList.Contains(_die))
-                {
-                    _rollingDiceList.Add(_die);
-                }
-            }
+            var _rollingDiceList = DiceList.FindAll(x => x.IsHeld == false);
             await Task.Run(() => _helper.RollDice(_rollingDiceList));
 
             DisplayDiceImages(_rollingDiceList);
@@ -370,50 +363,77 @@ namespace Yahtzee
             HeldDiceList = new List<DieModel>();
         }
 
-        private void AddToRoll(DieModel _die, ImageSource _imageSource)
+        private void AddToRoll(DieModel _rollingDie)
         {
-            Image _newDiceIMG;
-            if (OpenDiceImages.Count > 0)
+            _rollingDie.IsHeld = false;
+            var _rollingIMG = RollingImageDictionary.First(x => x.Value == 0).Key;
+            switch (_rollingDie.Value)
             {
-                _newDiceIMG = OpenDiceImages[0];
-                OpenDiceImages.RemoveAt(0);
+                case 1:
+                    _rollingIMG.Source = ImageHelper.DiceOne();
+                    break;
+                case 2:
+                    _rollingIMG.Source = ImageHelper.DiceTwo();
+                    break;
+                case 3:
+                    _rollingIMG.Source = ImageHelper.DiceThree();
+                    break;
+                case 4:
+                    _rollingIMG.Source = ImageHelper.DiceFour();
+                    break;
+                case 5:
+                    _rollingIMG.Source = ImageHelper.DiceFive();
+                    break;
+                case 6:
+                    _rollingIMG.Source = ImageHelper.DiceSix();
+                    break;
             }
-            else
-            {
-                _newDiceIMG = DiceImages[DiceList.Count - HeldDiceList.Count];
-            }
-            _newDiceIMG.Source = _imageSource;
-            _newDiceIMG.Visibility = Visibility.Visible;
-            HeldDiceList.Remove(_die);
+            RollingImageDictionary[_rollingIMG] = _rollingDie.Id;
+            _rollingIMG.Visibility = Visibility.Visible;
         }
 
         private void heldOneIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDiceList[0], heldOneIMG.Source);
+            DieModel _rollingDie = (DieModel)DiceList.Find(x => x.Id == HeldImageDictionary[heldOneIMG]);
+            AddToRoll(_rollingDie);
+
+            HeldImageDictionary[heldOneIMG] = 0;
             heldOneIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldTwoIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDiceList[1], heldTwoIMG.Source);
+            DieModel _rollingDie = (DieModel)DiceList.Find(x => x.Id == HeldImageDictionary[heldTwoIMG]);
+            AddToRoll(_rollingDie);
+
+            HeldImageDictionary[heldTwoIMG] = 0;
             heldTwoIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldThreeIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDiceList[2], heldThreeIMG.Source);
+            DieModel _rollingDie = (DieModel)DiceList.Find(x => x.Id == HeldImageDictionary[heldThreeIMG]);
+            AddToRoll(_rollingDie);
+
+            HeldImageDictionary[heldThreeIMG] = 0;
             heldThreeIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldFourIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDiceList[3], heldFourIMG.Source);
+            DieModel _rollingDie = (DieModel)DiceList.Find(x => x.Id == HeldImageDictionary[heldFourIMG]);
+            AddToRoll(_rollingDie);
+
+            HeldImageDictionary[heldFourIMG] = 0;
             heldFourIMG.Visibility = Visibility.Collapsed;
         }
 
         private void heldFiveIMG_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddToRoll(HeldDiceList[4], heldFiveIMG.Source);
+            DieModel _rollingDie = (DieModel)DiceList.Find(x => x.Id == HeldImageDictionary[heldFiveIMG]);
+            AddToRoll(_rollingDie);
+
+            HeldImageDictionary[heldFiveIMG] = 0;
             heldFiveIMG.Visibility = Visibility.Collapsed;
         }
 
