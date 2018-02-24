@@ -29,11 +29,5 @@ namespace Yahtzee.Utilities
         {
 
         }
-
-        private class PlayerResults
-        {
-            string ScoreName { get; set; }
-
-        }
     }
 }

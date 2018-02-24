@@ -532,26 +532,18 @@ namespace Yahtzee
                 addPlayerTB.Text = "Player Name";
             }
             addPlayerTB.SelectAll();
-
-            DataHelper.SaveLocalPlayer(_player);
         }
 
         private void settingsTAB_GotFocus(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                playersLB.ItemsSource = CurrentGame.Players;
-            }
-            catch
-            {
 
-            }
         }
 
         private void startGameBTN_Click(object sender, RoutedEventArgs e)
         {
             MainTC.SelectedIndex = 1;
             StartNewGame();
+            DataHelper.SaveLocalPlayers(CurrentGame.Players);
         }
 
         private void ShowNewGame()
@@ -566,6 +558,9 @@ namespace Yahtzee
             heldThreeIMG.Visibility = Visibility.Collapsed;
             heldFourIMG.Visibility = Visibility.Collapsed;
             heldFiveIMG.Visibility = Visibility.Collapsed;
+
+            CurrentGame.Players = DataHelper.GetLocalPlayers();
+            playersLB.ItemsSource = CurrentGame.Players;
         }
 
         private void ShowActiveGame()
@@ -592,11 +587,6 @@ namespace Yahtzee
             }
         }
 
-        private void FinishGame()
-        {
-
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var _newResults = new ResultsModel
@@ -605,7 +595,47 @@ namespace Yahtzee
                 Score = ActivePlayer.Scorecard.TotalScore(),
                 Date = DateTime.Now.Date.ToShortDateString()
             };
-            DataHelper.AddResult(_newResults);
+            DataHelper.AddResults(_newResults);
+        }
+
+        private void scoreViewingCB_DropDownClosed(object sender, EventArgs e)
+        {
+            ScoreGrid.ItemsSource = null;
+            switch (scoreViewingCB.Text)
+            {
+                case "Current Game":
+                    break;
+                case "Past Scores":
+                    var res = DataHelper.GetPastScores();
+                    ScoreGrid.ItemsSource = DataHelper.GetPastScores();
+                    break;
+            }
+        }
+
+        private void newGameBTN_Click(object sender, RoutedEventArgs e)
+        {
+            EndGame();
+        }
+
+        private void EndGame()
+        {
+            foreach (PlayerModel _player in CurrentGame.Players)
+            {
+                var _newResults = new ResultsModel
+                {
+                    Date = DateTime.Now.Date.ToShortDateString(),
+                    Player = _player.Name,
+                    Score = _player.Scorecard.TotalScore()
+                };
+                DataHelper.AddResults(_newResults);
+            }
+        }
+
+        private void removePlayerBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var _selectedPlayer = CurrentGame.Players.Find(x => x.Name == playersLB.SelectedValue.ToString());
+            CurrentGame.Players.Remove(_selectedPlayer);
+            playersLB.Items.Refresh();
         }
     }
 }

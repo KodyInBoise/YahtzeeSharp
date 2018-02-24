@@ -16,11 +16,11 @@
                     <Button x:Name="addPlayerBTN" FontFamily="Verdana" FontSize="28"  Content="Add Player" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="331,282,0,0" VerticalAlignment="Top" Width="344" Height="55" Background="#FF0073B4" Click="addPlayerBTN_Click"/>
                     <TextBlock x:Name="newGameLBL" HorizontalAlignment="Left" Height="82" Margin="331,127,0,0" TextWrapping="Wrap" Text="New Game" VerticalAlignment="Top" Width="344" FontSize="46" FontWeight="Bold" FontFamily="Tekton Pro" TextAlignment="Center"/>
                     <Button x:Name="startGameBTN" FontFamily="Verdana" FontSize="28"  Content="Start!" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="672,486,0,0" VerticalAlignment="Top" Width="250" Height="75" Background="#FF41B400" Click="startGameBTN_Click"/>
+                    <Button x:Name="removePlayerBTN" FontFamily="Verdana" FontSize="14" Content="Remove Player" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="64,486,0,0" VerticalAlignment="Top" Width="213" Height="55" Background="#FFA52828" Click="removePlayerBTN_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="gameTAB" Header="Game" FontFamily="Verdana" FontSize="20">
                 <Grid Background="#FFE5E5E5" Margin="0,-20,0,0">
-                    <Button x:Name="startBTN" Content="New Game" Style="{StaticResource RoundButtonTemplate}" FontFamily="Verdana" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="769,510,0,0" VerticalAlignment="Top" Width="173" Height="61" Click="startBTN_Click" Background="#FFC91515" Visibility="Collapsed"/>
                     <TextBlock x:Name="playerTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,35,0,0" TextWrapping="Wrap" Text="Player: Player 1" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="rollTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,109,0,0" TextWrapping="Wrap" Text="Roll: 1 of 3" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="turnTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,72,0,0" TextWrapping="Wrap" Text="Turn: 1" VerticalAlignment="Top" FontWeight="Normal"/>
@@ -38,19 +38,19 @@
                     <Image x:Name="heldThreeIMG" HorizontalAlignment="Left" Height="60" Margin="63,321,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldThreeIMG_MouseDown"/>
                     <Image x:Name="heldFourIMG" HorizontalAlignment="Left" Height="60" Margin="147,321,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldFourIMG_MouseDown"/>
                     <Image x:Name="heldFiveIMG" HorizontalAlignment="Left" Height="60" Margin="63,386,0,0" VerticalAlignment="Top" Width="60" Source="Images/dice-one.png" MouseDown="heldFiveIMG_MouseDown"/>
-                    <Button x:Name="unholdBTN" FontFamily="Verdana" FontSize="14" Content="Add to Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="45,468,0,0" VerticalAlignment="Top" Width="185" Height="55" Click="unholdBTN_Click"/>
+                    <Button x:Name="unholdBTN" FontFamily="Verdana" FontSize="14" Content="Add to Roll" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="45,468,0,0" VerticalAlignment="Top" Width="185" Height="55" Click="unholdBTN_Click" Background="#FFA52828"/>
                     <ListBox x:Name="availableLB" HorizontalAlignment="Left" Style="{StaticResource RoundListBox}" Height="311" Margin="752,114,0,0" VerticalAlignment="Top" Width="169" FontSize="16"/>
                     <Button x:Name="UseScoreBTN" Content="Use Score" Style="{StaticResource RoundButtonTemplate}" FontFamily="Verdana" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="752,430,0,0" VerticalAlignment="Top" Width="169" Height="55" Background="#FF41B400" Click="UseScoreBTN_Click"/>
                     <TextBlock x:Name="scoreTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,146,0,0" TextWrapping="Wrap" Text="Score: 0" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="scorePointsTB" HorizontalAlignment="Center" Margin="403,176,371,0" TextWrapping="Wrap" Text="25 points" VerticalAlignment="Top" FontSize="36" Height="58" Width="178" Visibility="Collapsed"/>
                     <TextBlock x:Name="scoreNameTB" HorizontalAlignment="Center" Margin="395,234,369,0" TextWrapping="Wrap" Text="Full House" VerticalAlignment="Top" FontSize="36" Visibility="Collapsed"/>
-                    <Button Content="Button" HorizontalAlignment="Left" Margin="455,510,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <Button x:Name="newGameBTN" FontFamily="Tekton Pro" FontSize="22"  Content="End Game" Style="{StaticResource RoundButtonTemplate}" HorizontalAlignment="Left" Margin="752,517,0,0" VerticalAlignment="Top" Width="169" Height="55" Background="#FFA52828" Click="newGameBTN_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="scoreTAB" Header="Score" FontFamily="Verdana" FontSize="20" GotFocus="scoreTAB_GotFocus">
                 <Grid Background="#FFE5E5E5" Margin="0,-20,0,0">
                     <DataGrid x:Name="ScoreGrid" ItemsSource="{Binding PlayerScore}" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="454" Margin="68,88,0,0" VerticalAlignment="Top" Width="715" FontFamily="Tekton Pro"/>
-                    <ComboBox x:Name="scoreViewingCB" HorizontalAlignment="Left" Margin="233,43,0,0" VerticalAlignment="Top" Width="355" Height="40" FontFamily="Tekton Pro" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30">
+                    <ComboBox x:Name="scoreViewingCB" HorizontalAlignment="Left" Margin="233,43,0,0" VerticalAlignment="Top" Width="355" Height="40" FontFamily="Tekton Pro" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" DropDownClosed="scoreViewingCB_DropDownClosed">
                         <ComboBoxItem Content="Current Game" IsSelected="True"/>
                         <ComboBoxItem Content="Past Scores"/>
                     </ComboBox>

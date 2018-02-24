@@ -24,7 +24,17 @@ namespace Yahtzee.Utilities
             return _dataDir;
         }
 
-        public static void AddResult(ResultsModel _results)
+        public static List<PlayerModel> GetLocalPlayers()
+        {
+            using (var db = GetLocalData())
+            {
+                var _playersTable = db.GetCollection<PlayerModel>("Players");
+                return _playersTable.FindAll().ToList();
+            }
+        }
+
+
+        public static void AddResults(ResultsModel _results)
         {
             using (var db = GetLocalData())
             {
@@ -33,21 +43,26 @@ namespace Yahtzee.Utilities
             }
         }
 
-        public static PlayerModel GetLocalPlayer()
+        public static List<ResultsModel> GetPastScores()
         {
-            var _playerDataPath = DataDirectoryPath() + "player.json";
-            if (File.Exists(_playerDataPath))
+            using (var db = GetLocalData())
             {
-                return JsonConvert.DeserializeObject<PlayerModel>(_playerDataPath);
+                var _resultsTable = db.GetCollection<ResultsModel>("Results");
+                return _resultsTable.FindAll().ToList();
             }
-
-            return null;
         }
 
-        public static void SaveLocalPlayer(PlayerModel _player)
+        public static void SaveLocalPlayers(List<PlayerModel> _players)
         {
-            var _playerDataPath = DataDirectoryPath() + "player.json";
-            File.WriteAllText(_playerDataPath, JsonConvert.SerializeObject(_player));
+            using (var db = GetLocalData())
+            {
+                var _playersTable = db.GetCollection<PlayerModel>("Players");
+                foreach (PlayerModel _player in _playersTable.FindAll().ToList())
+                {
+                    _playersTable.Delete(_player.Id);
+                }
+                _playersTable.InsertBulk(_players);
+            }
         }
     }
 }

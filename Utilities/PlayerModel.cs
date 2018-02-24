@@ -9,7 +9,10 @@ namespace Yahtzee.Utilities
 {
     public class PlayerModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
+
+        [LiteDB.BsonIgnore]
         public ScoreTracker Scorecard { get; set; }
 
         public PlayerModel()
