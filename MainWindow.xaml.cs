@@ -213,7 +213,11 @@ namespace Yahtzee
             };
             RollingImageDictionary = CreateRollingDictionary();
             HeldImageDictionary = CreateHeldDictionary();
-            ResetHeldDice();           
+            ResetHeldDice();
+
+            var _allScores = new List<string>();
+            foreach (Score _score in ActivePlayer.Scorecard.ScoreList) _allScores.Add(_score.Name);
+            availableLB.ItemsSource = _allScores;
 
             playerTB.Visibility = Visibility.Visible;
             rollTB.Visibility = Visibility.Visible;
@@ -437,24 +441,33 @@ namespace Yahtzee
             heldFiveIMG.Visibility = Visibility.Collapsed;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            var _allDice = new List<DieModel>();
-            _allDice.AddRange(DiceList);
-            foreach (DieModel _die in HeldDiceList)
-            {
-                if (!_allDice.Contains(_die))
-                {
+        private void DisplayScores()
+        {            
+            ScoreTracker _scores = new ScoreTracker();
+            ScoreGrid.ItemsSource = _scores.ScoreList;
+            ScoreGrid.Columns[0].Header = string.Empty;
+            ScoreGrid.Columns[1].Header = ActivePlayer.Name;
+            ScoreGrid.Columns.RemoveAt(2);
+            ScoreGrid.Columns.RemoveAt(2);
+        }
 
-                    _allDice.Add(_die);
-                }
+        private void scoreTAB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            DisplayScores();
+        }
+
+        private void UseScoreBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var _scoreName = availableLB.SelectedValue.ToString();
+            var _score = ActivePlayer.Scorecard.ScoreList.Find(x => x.Name == "");
+            if (!_score.Used)
+            {
+                
             }
-            ActivePlayer.Scorecard.AddChance(_allDice);
-            */
-            //var _test = GetImageDice(heldTwoIMG);
-            //_test = GetImageDice(heldThreeIMG);
-            //var _test = GetImageDice(diceFourIMG);
+            else
+            {
+                availableLB.Items.Remove(availableLB.SelectedItem);
+            }
         }
     }
 }

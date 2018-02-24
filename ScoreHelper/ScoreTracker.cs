@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yahtzee.Scorecard;
 using Yahtzee.ScoreHelper;
 using Yahtzee.Utilities;
 
@@ -10,8 +11,8 @@ namespace Yahtzee.Scorecard
 {
     public class ScoreTracker
     {
-        public List<Score> ScoreList;
-        public List<int> AvailableNumbers;      
+        public List<Score> ScoreList { get; set; }
+        public List<int> AvailableNumbers { get; set; }
 
         public ScoreTracker()
         {
@@ -31,6 +32,11 @@ namespace Yahtzee.Scorecard
                 new Score("Yahtzee"),
                 new Score("Chance"),
             };
+        }
+
+        public void AddScore(Score _score, List<DieModel> _diceList)
+        {
+
         }
 
         public void AddOnes(List<DieModel> _diceList)
