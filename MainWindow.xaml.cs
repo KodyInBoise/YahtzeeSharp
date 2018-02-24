@@ -442,16 +442,23 @@ namespace Yahtzee
 
         private void DisplayScores()
         {
-            ScoreGrid.ItemsSource = null;
-            ScoreGrid.ItemsSource = ActivePlayer.Scorecard.ScoreList;
-
-            if (ScoreGrid.Columns.Count > 2)
+            try
             {
-                ScoreGrid.Columns.RemoveAt(2);
-                ScoreGrid.Columns.RemoveAt(2);
+                ScoreGrid.ItemsSource = null;
+                ScoreGrid.ItemsSource = ActivePlayer.Scorecard.ScoreList;
 
-                ScoreGrid.Columns[0].Header = string.Empty;
-                ScoreGrid.Columns[1].Header = ActivePlayer.Name;
+                if (ScoreGrid.Columns.Count > 2)
+                {
+                    ScoreGrid.Columns.RemoveAt(2);
+                    ScoreGrid.Columns.RemoveAt(2);
+
+                    ScoreGrid.Columns[0].Header = string.Empty;
+                    ScoreGrid.Columns[1].Header = ActivePlayer.Name;
+                }
+            }
+            catch
+            {
+                ScoreGrid.ItemsSource = null;
             }
         }
 
@@ -462,13 +469,20 @@ namespace Yahtzee
 
         private void UseScoreBTN_Click(object sender, RoutedEventArgs e)
         {
-            var _scoreName = availableLB.SelectedValue.ToString();
-            var _score = ActivePlayer.Scorecard.ScoreList.Find(x => x.Name == _scoreName);
-            AddSelectedScore(_score);
+            try
+            {
+                var _scoreName = availableLB.SelectedValue.ToString();
+                var _score = ActivePlayer.Scorecard.ScoreList.Find(x => x.Name == _scoreName);
+                AddSelectedScore(_score);
 
-            availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
-            rollBTN.Visibility = Visibility.Collapsed;
-            nextTurnBTN.Visibility = Visibility.Visible;
+                availableLB.ItemsSource = ActivePlayer.Scorecard.AvailableScores();
+                rollBTN.Visibility = Visibility.Collapsed;
+                nextTurnBTN.Visibility = Visibility.Visible;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         private void AddSelectedScore(Score _score)
@@ -476,6 +490,9 @@ namespace Yahtzee
             if (!_score.Used)
             {
                 ActivePlayer.Scorecard.AddScore(_score, DiceList);
+                var _points = 0;
+                foreach (Score _scorePoints in ActivePlayer.Scorecard.ScoreList) _points += _scorePoints.Value;
+                scoreTB.Text = $"Score: {_points}";
             }
             else
             {

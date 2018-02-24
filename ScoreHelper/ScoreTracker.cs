@@ -86,7 +86,7 @@ namespace Yahtzee.Scorecard
 
         public void AddOnes(List<DieModel> _diceList)
         {
-            var _score = ScoreList.Find(s => s.Name == "Ones");
+            var _score = ScoreList.Find(s => s.Name == "Aces");
             var x = 0;
             foreach (DieModel _die in _diceList)
             {
