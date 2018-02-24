@@ -11,12 +11,26 @@ namespace Yahtzee.Utilities
 {
     class DataHelper
     {
+        private static LiteDatabase GetLocalData()
+        {
+            return new LiteDatabase(DataDirectoryPath() + "yahtzee.data");
+        }
+
         public static string DataDirectoryPath()
         {
             var _dataDir = $"{Environment.GetEnvironmentVariable("LocalAppData")}\\YahtzeeSharp\\";
             if (!Directory.Exists(_dataDir)) Directory.CreateDirectory(_dataDir);
 
             return _dataDir;
+        }
+
+        public static void AddResult(ResultsModel _results)
+        {
+            using (var db = GetLocalData())
+            {
+                var _resultsTable = db.GetCollection<ResultsModel>("Results");
+                _resultsTable.Insert(_results);
+            }
         }
 
         public static PlayerModel GetLocalPlayer()

@@ -36,5 +36,15 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        <Style x:Key="RoundComboBox" TargetType="ComboBox">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
     </Application.Resources>
 </Application>

@@ -44,11 +44,16 @@
                     <TextBlock x:Name="scoreTB" FontFamily="Verdana" FontSize="26" HorizontalAlignment="Left" Margin="24,146,0,0" TextWrapping="Wrap" Text="Score: 0" VerticalAlignment="Top" FontWeight="Normal"/>
                     <TextBlock x:Name="scorePointsTB" HorizontalAlignment="Center" Margin="403,176,371,0" TextWrapping="Wrap" Text="25 points" VerticalAlignment="Top" FontSize="36" Height="58" Width="178" Visibility="Collapsed"/>
                     <TextBlock x:Name="scoreNameTB" HorizontalAlignment="Center" Margin="395,234,369,0" TextWrapping="Wrap" Text="Full House" VerticalAlignment="Top" FontSize="36" Visibility="Collapsed"/>
+                    <Button Content="Button" HorizontalAlignment="Left" Margin="455,510,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="scoreTAB" Header="Score" FontFamily="Verdana" FontSize="20" GotFocus="scoreTAB_GotFocus">
                 <Grid Background="#FFE5E5E5" Margin="0,-20,0,0">
                     <DataGrid x:Name="ScoreGrid" ItemsSource="{Binding PlayerScore}" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="454" Margin="68,88,0,0" VerticalAlignment="Top" Width="715" FontFamily="Tekton Pro"/>
+                    <ComboBox x:Name="scoreViewingCB" HorizontalAlignment="Left" Margin="233,43,0,0" VerticalAlignment="Top" Width="355" Height="40" FontFamily="Tekton Pro" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30">
+                        <ComboBoxItem Content="Current Game" IsSelected="True"/>
+                        <ComboBoxItem Content="Past Scores"/>
+                    </ComboBox>
                 </Grid>
             </TabItem>
         </TabControl>

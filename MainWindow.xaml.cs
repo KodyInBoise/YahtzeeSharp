@@ -596,5 +596,16 @@ namespace Yahtzee
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var _newResults = new ResultsModel
+            {
+                Player = ActivePlayer.Name,
+                Score = ActivePlayer.Scorecard.TotalScore(),
+                Date = DateTime.Now.Date.ToShortDateString()
+            };
+            DataHelper.AddResult(_newResults);
+        }
     }
 }
